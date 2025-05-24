@@ -1,0 +1,295 @@
+Config:
+  baseGemChance: 0.1
+  baseDoubleChance: 0
+  baseGemSlots: 3
+
+Messages:
+  noPermission: "&b[&cMinería&b] &eNo tienes permiso para hacer esto."
+  notEnoughArgs: "&b[&cMinería&b] &eNo has especificado suficientes argumentos."
+  reload: "&b[&cMinería&b] &eEl plugin se ha recargado con éxito."
+  list : "&b[&cMinería&b] &eLas gemas disponibles son: "
+  doubleDrop: "&b[&cMinería&b] &eHas extraído 2 gemas de una sola mena."
+  pickaxeGiven: "&b[&cMinería&b] &eHas conseguido un &5&lNox Aeterna&e."
+  invalidMaterial: "&b[&cMinería&b] &eEl material especificado no es válido."
+  pickaxeArguments: "&b[&cMinería&b] &eEl uso es /tartarusriches pickaxe <Material> <Prob. Gema> [Jugador]."
+  gemGiven: "&b[&cMinería&b] &eHas conseguido una gema de %gem%&e."
+  gemArguments: "&b[&cMinería&b] &eEl uso es /tartatusriches gem <Gema> [Jugador] [Efectividad]."
+  gemChanceAdded: "&b[&cMinería&b] &eSe ha añadido probabilidad de gema al objeto."
+  gemChanceArguments: "&b[&cMinería&b] &eEl uso es /tartarusriches gemChance <Probabilidad>."
+  doubleAdded: "&b[&cMinería&b] &eSe ha añadido probabilidad de doble gema al objeto."
+  doubleArguments: "&b[&cMinería&b] &eEl uso es /tartarusriches double <Probabilidad>."
+  clusterGiven: "&b[&cMinería&b] &eHas conseguido una &8&lMena sin procesar&e."
+  gemRemoved: "&b[&cMinería&b] &eHas quitado la gema del hueco %slot%."
+  removeArguments: "&b[&cMinería&b] &eEl uso es /tartarusriches remove <Hueco>."
+  gemApplied: "&b[&cMinería&b] &eHas incrustado la gema en el objeto."
+  maxSlots: "&b[&cMinería&b] &eNo puedes incrustar más gemas en este objeto."
+  slotsChanged: "&b[&cMinería&b] &eEste objeto ahora puede soportar el poder de %slots% gemas."
+  slotsArguments: "&b[&cMinería&b] &eEl uso es /tartarusriches slots <Huecos>."
+  stats:
+    - "&d&m-===- &b[&cMinería&b] &d&m-===-"
+    - "&bProbabilidad de gemas: &e%gemChance%%"
+    - "&bProbabilidad de doble: &e%doubleChance%%"
+    - "&d&m-===- &b[&cMinería&b] &d&m-===-"
+  help:
+    - "&d&m -===- &b[&cMinería&b] &d&m-===-"
+    - "&b/tartarusriches &eMuestra esta página."
+    - "&b/tartarusriches pickaxe <Material> <Prob. Gema> [Jugador] &eDa un &5&lNox Aeterna&e."
+    - "&b/tartarusriches cluster [Jugador] &eDa una &8&lMena sin procesar&e."
+    - "&b/tartarusriches list &eMuestra todas las gemas disponibles."
+    - "&b/tartarusriches gem <Gema> [Jugador] [Efectividad] &eDa una gema a un jugador."
+    - "&b/tartarusriches gemChance <Probabilidad> &eAñade probabilidad de gema al objeto."
+    - "&b/tartarusriches double <Probabilidad> &eAñade probabilidd de doble gema al objeto."
+    - "&b/tartarusriches remove <Hueco> &eElimina la gema del hueco seleccionado."
+    - "&b/tartarusriches slots <Huecos> &eCambia el número de gemas máximas aplicables a un objeto."
+    - "&b/tartarusriches stats &eMuestra tus estadísticas."
+    - "&b/tartarusriches reload &eRecarga la configuración del plugin."
+    - "&b"
+    - "&eLeyenda: &b<> &eObligatorio  &b[] &eOpcional"
+    - "&d&m -===- &b[&cMinería&b] &d&m-===-"
+
+Sounds:
+  doubleDropSound: ENTITY_PLAYER_LEVELUP
+  gemDropSound: BLOCK_AMETHYST_CLUSTER_FALL
+  removeGemSound: BLOCK_RESPAWN_ANCHOR_DEPLETE
+  addGemSound: BLOCK_RESPAWN_ANCHOR_CHARGE
+
+Items:
+  pickaxe:
+    name: "&f&l🌙 &5&lNox Aeterna &f&l🌙"
+    lore:
+      - "&7"
+      - "&7Pico imbuido con la esencia de la"
+      - "&7noche misma, Nix. Permite descubrir"
+      - "&7los tesoros del inframundo."
+      - "&7"
+    gemChance: "&7Probabilidad de gema: &d%gem_chance%%"
+    doubleChance: "&7Probabilidad de doble: &d%double_chance%%"
+  gem:
+    name: "%gem_name%"
+    lore:
+      - "&7"
+      - "&7Parte de las riquezas del inframundo."
+      - "&7Extraído de las bóbedas de Hades."
+      - "%power%"
+    glow: true
+  gemCluster:
+    material: PHANTOM_MEMBRANE
+    name: "&8&lMena sin procesar"
+    lore:
+      - "&7"
+      - "&7Extraída del mismo Érebo, quien"
+      - "&7sabe que puede contener."
+      - "&7"
+      - "&7Clic para abrir."
+    glow: true
+    min: 1
+    max: 3
+
+Gems:
+  sapphire:
+    material: HEART_OF_THE_SEA
+    name: "&1&lZafiro"
+    power: "&7Confiere un &d%effectiveness%% &7de daño al golpear."
+    type: addDamage
+    min: 1
+    max: 10
+  ruby:
+    material: REDSTONE
+    name: "&c&lRubí"
+    power: "&7Confiere un &d%effectiveness%% &7de esquivar."
+    type: dodge
+    min: 1
+    max: 5
+  emerald:
+    material: EMERALD
+    name: "&a&lEsmeralda"
+    power: "&7Confiere un &d%effectiveness%% &7de golpear críticamente."
+    type: critic
+    min: 1
+    max: 5
+
+Ores:
+  COAL_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  DEEPSLATE_COAL_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  IRON_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  DEEPSLATE_IRON_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  RAW_IRON_BLOCK:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  COPPER_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  DEEPSLATE_COPPER_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  RAW_COPPER_BLOCK:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  GOLD_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  DEEPSLATE_GOLD_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  RAW_GOLD_BLOCK:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  NETHER_QUARTZ_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  REDSTONE_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  DEEPSLATE_REDSTONE_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  EMERALD_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  DEEPSLATE_EMERALD_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  LAPIS_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  DEEPSLATE_LAPIS_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  DIAMOND_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  DEEPSLATE_DIAMOND_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  NETHER_GOLD_ORE:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  ANCIENT_DEBRIS:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2
+  AMETHYST_BLOCK:
+    rewards:
+      sapphire:
+        weight: 10
+      ruby:
+        weight: 5
+      emerald:
+        weight: 2

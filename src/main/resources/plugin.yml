@@ -1,0 +1,12 @@
+name: TartarusRiches
+version: 1.0
+main: wbe.tartarusRiches.TartarusRiches
+api-version: 1.21
+author: wbe
+softdepend: [PlaceholderAPI]
+depend: [mcMMO]
+commands:
+  TartarusRiches:
+    description: TartarusRiches main command
+    aliases: [tr, tartarusr, triches]
+    permission: tartarusriches.command
