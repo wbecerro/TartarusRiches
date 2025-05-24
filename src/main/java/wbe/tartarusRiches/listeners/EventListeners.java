@@ -11,5 +11,7 @@ public class EventListeners {
 
         pluginManager.registerEvents(new PlayerInteractListeners(), plugin);
         pluginManager.registerEvents(new BlockBreakListeners(), plugin);
+        pluginManager.registerEvents(new PrepareAnvilListeners(), plugin);
+        pluginManager.registerEvents(new InventoryClickListeners(), plugin);
     }
 }
