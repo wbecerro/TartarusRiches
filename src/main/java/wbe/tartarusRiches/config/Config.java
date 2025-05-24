@@ -1,5 +1,6 @@
 package wbe.tartarusRiches.config;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -96,21 +97,21 @@ public class Config {
             String typeName = config.getString("Gems." + gem + ".type");
             String slotIcon = config.getString("Gems." + gem + ".slotIcon");
             String slotColor = config.getString("Gems." + gem + ".slotColor").replace("&", "§");
-            GemType type = getType(typeName, min, max);
+            GemType type = getType(typeName, id, min, max);
             Gem newGem = new Gem(id, material, name, power, type, typeName.toLowerCase(), slotIcon, slotColor, min, max);
             gems.put(id, newGem);
             gemList.add(newGem);
         }
     }
 
-    private GemType getType(String gem, double min, double max) {
-        gem = gem.toUpperCase();
+    private GemType getType(String type, String gem, double min, double max) {
+        type = type.toUpperCase();
         double multiplier;
         double damage;
         List<String> skills;
         List<EntityType> entities = new ArrayList<>();
 
-        switch(gem) {
+        switch(type) {
             case "CRITIC":
                 multiplier = config.getDouble("Gems." + gem + ".multiplier");
                 return new critic(multiplier);

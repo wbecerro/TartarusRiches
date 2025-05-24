@@ -112,6 +112,7 @@ Gems:
     name: "&a&lEsmeralda"
     power: "&7Confiere un &d%effectiveness%% &7de golpear críticamente."
     type: critic
+    multiplier: 2
     slotIcon: 🔮
     slotColor: "&a"
     min: 1
