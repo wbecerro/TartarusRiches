@@ -1,6 +1,10 @@
 package wbe.tartarusRiches.gemTypes;
 
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+import org.bukkit.event.entity.EntityDamageEvent;
+
+import java.util.Random;
 
 public class dodge extends GemType {
 
@@ -8,7 +12,21 @@ public class dodge extends GemType {
         super();
     }
 
-    public void applyEffect(ItemStack item) {
+    public void applyEffect(Player player, Event event) {
+        if(!(event instanceof EntityDamageEvent)) {
+            return;
+        }
 
+        double power = getGemPowerValue(player, "dodge");
+        if(power <= 0) {
+            return;
+        }
+
+        Random random = new Random();
+        if(!(random.nextDouble(100) <= power)) {
+            return;
+        }
+
+        ((EntityDamageEvent) event).setDamage(0);
     }
 }

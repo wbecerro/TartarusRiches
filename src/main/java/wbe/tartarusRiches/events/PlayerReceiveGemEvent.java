@@ -5,23 +5,23 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import wbe.tartarusRiches.config.Gem;
+import wbe.tartarusRiches.config.Ore;
 
 public class PlayerReceiveGemEvent extends Event implements Cancellable {
 
     private Player player;
 
-    private Gem gem;
-
     private Block block;
 
-    private boolean isCancelled;
+    private Ore ore;
+
+    private boolean isCancelled = false;
 
     private static final HandlerList handlers = new HandlerList();
 
-    public PlayerReceiveGemEvent(Player player, Gem gem, Block block) {
+    public PlayerReceiveGemEvent(Player player, Ore ore, Block block) {
         this.player = player;
-        this.gem = gem;
+        this.ore = ore;
         this.block = block;
     }
 
@@ -33,12 +33,12 @@ public class PlayerReceiveGemEvent extends Event implements Cancellable {
         this.player = player;
     }
 
-    public Gem getGem() {
-        return gem;
+    public Ore getOre() {
+        return ore;
     }
 
-    public void setGem(Gem gem) {
-        this.gem = gem;
+    public void setOre(Ore ore) {
+        this.ore = ore;
     }
 
     public Block getBlock() {

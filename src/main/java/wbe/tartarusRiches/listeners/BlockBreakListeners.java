@@ -11,6 +11,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import wbe.tartarusRiches.TartarusRiches;
 import wbe.tartarusRiches.config.Ore;
+import wbe.tartarusRiches.events.PlayerReceiveGemEvent;
 
 import java.util.Collection;
 import java.util.Random;
@@ -42,16 +43,9 @@ public class BlockBreakListeners implements Listener {
         Random random = new Random();
         Player player = event.getPlayer();
         double gemChance = TartarusRiches.utilities.getPlayerGemChance(player);
-        double doubleChance = TartarusRiches.utilities.getPlayerDoubleChance(player);
 
         if(random.nextDouble(100) <= gemChance) {
-            player.playSound(player.getLocation(), TartarusRiches.config.gemDropSound, 1F, 1F);
-            event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), TartarusRiches.utilities.generateGemstone(brokenOre.getRandomReward()));
-            if(random.nextDouble(100) <= doubleChance) {
-                player.sendMessage(TartarusRiches.messages.doubleDrop);
-                player.playSound(player.getLocation(), TartarusRiches.config.doubleDropSound, 1F, 1F);
-                event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), TartarusRiches.utilities.generateGemstone(brokenOre.getRandomReward()));
-            }
+            TartarusRiches.getInstance().getServer().getPluginManager().callEvent(new PlayerReceiveGemEvent(player, brokenOre, event.getBlock()));
         }
     }
 }

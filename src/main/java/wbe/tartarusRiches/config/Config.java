@@ -87,8 +87,9 @@ public class Config {
             String power = config.getString("Gems." + gem + ".power").replace("&", "§");
             double min = config.getDouble("Gems." + gem + ".min");
             double max = config.getDouble("Gems." + gem + ".max");
-            GemType type = getType(config.getString("Gems." + gem + ".type"), min, max);
-            Gem newGem = new Gem(id, material, name, power, type, min, max);
+            String typeName = config.getString("Gems." + gem + ".type");
+            GemType type = getType(typeName, min, max);
+            Gem newGem = new Gem(id, material, name, power, type, typeName.toLowerCase(), min, max);
             gems.put(id, newGem);
             gemList.add(newGem);
         }
@@ -96,21 +97,12 @@ public class Config {
 
     private GemType getType(String gem, double min, double max) {
         gem = gem.toUpperCase();
-        String type;
         double multiplier;
+        double damage;
         List<String> skills;
         List<EntityType> entities = new ArrayList<>();
 
         switch(gem) {
-            case "CREATURECHANCE":
-                type = config.getString("Gems." + gem + ".chanceType");
-                return new creatureChance(type);
-            case "DOUBLECHANCE":
-                type = config.getString("Gems." + gem + ".chanceType");
-                return new doubleChance(type);
-            case "ITEMCHANCE":
-                type = config.getString("Gems." + gem + ".chanceType");
-                return new itemChance(type);
             case "CRITIC":
                 multiplier = config.getDouble("Gems." + gem + ".multiplier");
                 return new critic(multiplier);
@@ -126,8 +118,6 @@ public class Config {
                 return new addDamage();
             case "ADDDAMAGEMYTHIC":
                 return new addDamageMythic();
-            case "ARROWUSE":
-                return new arrowUse();
             case "DAMAGEREDUCTION":
                 return new damageReduction();
             case "DODGE":
@@ -137,7 +127,8 @@ public class Config {
             case "LIFE":
                 return new life();
             case "THUNDER":
-                return new thunder();
+                damage = config.getDouble("Gems." + gem + ".damage");
+                return new thunder(damage);
             case "XP":
                 return new xp();
             default:

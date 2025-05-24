@@ -15,16 +15,19 @@ public class Gem {
 
     private GemType type;
 
+    private String typeName;
+
     private double min;
 
     private double max;
 
-    public Gem(String id, Material material, String name, String power, GemType type, double min, double max) {
+    public Gem(String id, Material material, String name, String power, GemType type, String typeName, double min, double max) {
         this.id = id;
         this.material = material;
         this.name = name;
         this.power = power;
         this.type = type;
+        this.typeName = typeName;
         this.min = min;
         this.max = max;
     }
@@ -67,6 +70,14 @@ public class Gem {
 
     public void setType(GemType type) {
         this.type = type;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     public double getMin() {
