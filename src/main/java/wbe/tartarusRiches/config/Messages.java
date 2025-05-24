@@ -25,6 +25,7 @@ public class Messages {
     public String gemRemoved;
     public String removeArguments;
     public String gemApplied;
+    public String gemAlreadyPresent;
     public String maxSlots;
     public String slotsChanged;
     public String slotsArguments;
@@ -50,6 +51,7 @@ public class Messages {
         gemRemoved = config.getString("Messages.gemRemoved").replace("&", "§");
         removeArguments = config.getString("Messages.removeArguments").replace("&", "§");
         gemApplied = config.getString("Messages.gemApplied").replace("&", "§");
+        gemAlreadyPresent = config.getString("Messages.gemAlreadyPresent").replace("&", "§");
         maxSlots = config.getString("Messages.maxSlots").replace("&", "§");
         slotsChanged = config.getString("Messages.slotsChanged").replace("&", "§");
         slotsArguments = config.getString("Messages.slotsArguments").replace("&", "§");

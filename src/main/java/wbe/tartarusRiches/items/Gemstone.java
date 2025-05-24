@@ -24,7 +24,8 @@ public class Gemstone extends ItemStack {
             meta = Bukkit.getItemFactory().getItemMeta(gem.getMaterial());
         }
 
-        meta.setDisplayName(TartarusRiches.config.gemName.replace("%gem_name%", gem.getName()));
+        meta.setDisplayName(TartarusRiches.config.gemName.replace("%gem_name%", gem.getName())
+                .replace("%icon%", gem.getSlotIcon()));
 
         ArrayList<String> lore = new ArrayList<>();
         String power = gem.getPower().replace("%effectiveness%", String.valueOf(effectiveness));

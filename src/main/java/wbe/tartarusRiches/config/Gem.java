@@ -17,17 +17,24 @@ public class Gem {
 
     private String typeName;
 
+    private String slotIcon;
+
+    private String slotColor;
+
     private double min;
 
     private double max;
 
-    public Gem(String id, Material material, String name, String power, GemType type, String typeName, double min, double max) {
+    public Gem(String id, Material material, String name, String power, GemType type, String typeName, String slotIcon,
+               String slotColor, double min, double max) {
         this.id = id;
         this.material = material;
         this.name = name;
         this.power = power;
         this.type = type;
         this.typeName = typeName;
+        this.slotIcon = slotIcon;
+        this.slotColor = slotColor;
         this.min = min;
         this.max = max;
     }
@@ -78,6 +85,22 @@ public class Gem {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    public String getSlotIcon() {
+        return slotIcon;
+    }
+
+    public void setSlotIcon(String slotIcon) {
+        this.slotIcon = slotIcon;
+    }
+
+    public String getSlotColor() {
+        return slotColor;
+    }
+
+    public void setSlotColor(String slotColor) {
+        this.slotColor = slotColor;
     }
 
     public double getMin() {

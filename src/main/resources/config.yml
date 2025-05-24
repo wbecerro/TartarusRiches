@@ -22,6 +22,7 @@ Messages:
   gemRemoved: "&b[&cMinería&b] &eHas quitado la gema del hueco %slot%."
   removeArguments: "&b[&cMinería&b] &eEl uso es /tartarusriches remove <Hueco>."
   gemApplied: "&b[&cMinería&b] &eHas incrustado la gema en el objeto."
+  gemAlreadyPresent: "&b[&cMinería&b] &eEste objeto ya contiene esta gema."
   maxSlots: "&b[&cMinería&b] &eNo puedes incrustar más gemas en este objeto."
   slotsChanged: "&b[&cMinería&b] &eEste objeto ahora puede soportar el poder de %slots% gemas."
   slotsArguments: "&b[&cMinería&b] &eEl uso es /tartarusriches slots <Huecos>."
@@ -54,6 +55,8 @@ Sounds:
   addGemSound: BLOCK_RESPAWN_ANCHOR_CHARGE
 
 Items:
+  slotsTitle: "&7&m-=-&d Gemas &7&m-=-"
+  slot: "%color%[%power%%%icon%]"
   pickaxe:
     name: "&f&l🌙 &5&lNox Aeterna &f&l🌙"
     lore:
@@ -65,7 +68,7 @@ Items:
     gemChance: "&7Probabilidad de gema: &d%gem_chance%%"
     doubleChance: "&7Probabilidad de doble: &d%double_chance%%"
   gem:
-    name: "%gem_name%"
+    name: "%gem_name% %icon%"
     lore:
       - "&7"
       - "&7Parte de las riquezas del inframundo."
@@ -88,9 +91,11 @@ Items:
 Gems:
   sapphire:
     material: HEART_OF_THE_SEA
-    name: "&1&lZafiro"
+    name: "&9&lZafiro"
     power: "&7Confiere un &d%effectiveness%% &7de daño al golpear."
     type: addDamage
+    slotIcon: 🍕
+    slotColor: "&9"
     min: 1
     max: 10
   ruby:
@@ -98,6 +103,8 @@ Gems:
     name: "&c&lRubí"
     power: "&7Confiere un &d%effectiveness%% &7de esquivar."
     type: dodge
+    slotIcon: ✨
+    slotColor: "&c"
     min: 1
     max: 5
   emerald:
@@ -105,6 +112,8 @@ Gems:
     name: "&a&lEsmeralda"
     power: "&7Confiere un &d%effectiveness%% &7de golpear críticamente."
     type: critic
+    slotIcon: 🔮
+    slotColor: "&a"
     min: 1
     max: 5
 

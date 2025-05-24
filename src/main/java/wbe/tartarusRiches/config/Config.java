@@ -25,6 +25,9 @@ public class Config {
     public Sound removeGemSound;
     public Sound addGemSound;
 
+    public String slotsTitle;
+    public String slot;
+
     public String pickaxeName;
     public List<String> pickaxeLore = new ArrayList<>();
     public String pickaxeGemChance;
@@ -58,6 +61,9 @@ public class Config {
         removeGemSound = Sound.valueOf(config.getString("Sounds.removeGemSound"));
         addGemSound = Sound.valueOf(config.getString("Sounds.addGemSound"));
 
+        slotsTitle = config.getString("Items.slotsTitle").replace("&", "§");
+        slot = config.getString("Items.slot");
+
         pickaxeName = config.getString("Items.pickaxe.name").replace("&", "§");
         pickaxeLore = config.getStringList("Items.pickaxe.lore");
         pickaxeGemChance = config.getString("Items.pickaxe.gemChance").replace("&", "§");
@@ -88,8 +94,10 @@ public class Config {
             double min = config.getDouble("Gems." + gem + ".min");
             double max = config.getDouble("Gems." + gem + ".max");
             String typeName = config.getString("Gems." + gem + ".type");
+            String slotIcon = config.getString("Gems." + gem + ".slotIcon");
+            String slotColor = config.getString("Gems." + gem + ".slotColor").replace("&", "§");
             GemType type = getType(typeName, min, max);
-            Gem newGem = new Gem(id, material, name, power, type, typeName.toLowerCase(), min, max);
+            Gem newGem = new Gem(id, material, name, power, type, typeName.toLowerCase(), slotIcon, slotColor, min, max);
             gems.put(id, newGem);
             gemList.add(newGem);
         }

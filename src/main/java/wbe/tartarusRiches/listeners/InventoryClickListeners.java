@@ -1,5 +1,6 @@
 package wbe.tartarusRiches.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.HumanEntity;
@@ -7,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.AnvilInventory;
@@ -70,5 +72,64 @@ public class InventoryClickListeners implements Listener {
         event.getInventory().setItem(1, null);
 
         player.setItemOnCursor(newGemstone);
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void applyGem(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        if(!event.getAction().equals(InventoryAction.SWAP_WITH_CURSOR)) {
+            return;
+        }
+
+        ItemStack gemItem = event.getCursor();
+        ItemMeta meta = gemItem.getItemMeta();
+        if(meta == null) {
+            return;
+        }
+
+        NamespacedKey typeKey = new NamespacedKey(TartarusRiches.getInstance(), "gemType");
+        NamespacedKey effectivenessKey = new NamespacedKey(TartarusRiches.getInstance(), "effectiveness");
+        if(!meta.getPersistentDataContainer().has(typeKey)) {
+            return;
+        }
+
+        Gem gem = TartarusRiches.config.gems.get(meta.getPersistentDataContainer().get(typeKey, PersistentDataType.STRING));
+        double effectiveness = meta.getPersistentDataContainer().get(effectivenessKey, PersistentDataType.DOUBLE);
+
+        ItemStack inventoryItem = event.getCurrentItem();
+        ItemMeta inventoryItemMeta = inventoryItem.getItemMeta();
+        if(inventoryItemMeta == null) {
+            inventoryItemMeta = Bukkit.getItemFactory().getItemMeta(inventoryItem.getType());
+        }
+
+        if(inventoryItem.getAmount() != 1) {
+            return;
+        }
+
+        String name = "";
+        if(!inventoryItemMeta.hasDisplayName()) {
+            name = inventoryItemMeta.getItemName();
+        } else {
+            name = inventoryItemMeta.getDisplayName();
+        }
+
+        inventoryItemMeta.setDisplayName(name);
+        inventoryItem.setItemMeta(inventoryItemMeta);
+
+        ItemStack newItem = new ItemStack(inventoryItem.getType());
+        newItem.setItemMeta(inventoryItemMeta);
+        newItem.getItemMeta().setLore(inventoryItemMeta.getLore());
+
+        boolean correct = TartarusRiches.utilities.applyGem(gem, newItem, effectiveness, player);
+        if(!correct) {
+            event.setCancelled(true);
+            return;
+        }
+
+        gemItem.setAmount(gemItem.getAmount() - 1);
+        event.setCurrentItem(newItem);
+        player.setItemOnCursor(gemItem);
+        event.setCancelled(true);
+        player.updateInventory();
     }
 }

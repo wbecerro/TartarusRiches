@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import wbe.tartarusRiches.TartarusRiches;
 import wbe.tartarusRiches.config.Gem;
 import wbe.tartarusRiches.items.Cluster;
@@ -159,6 +160,44 @@ public class CommandListener implements CommandExecutor {
 
                 plugin.reloadConfiguration();
                 sender.sendMessage(TartarusRiches.messages.reload);
+            } else if(args[0].equalsIgnoreCase("remove")) {
+                if(!sender.hasPermission("tartarusriches.command.remove")) {
+                    sender.sendMessage(TartarusRiches.messages.noPermission);
+                    return false;
+                }
+
+                if(args.length < 2) {
+                    sender.sendMessage(TartarusRiches.messages.notEnoughArgs);
+                    sender.sendMessage(TartarusRiches.messages.removeArguments);
+                    return false;
+                }
+
+                ItemStack item = player.getInventory().getItemInMainHand();
+                if(item == null || item.getType().equals(Material.AIR)) {
+                    return false;
+                }
+                int slot = Integer.parseInt(args[1]);
+
+                TartarusRiches.utilities.removeGem(item, slot, player);
+            } else if(args[0].equalsIgnoreCase("slots")) {
+                if(!sender.hasPermission("tartarusriches.command.slots")) {
+                    sender.sendMessage(TartarusRiches.messages.noPermission);
+                    return false;
+                }
+
+                if(args.length < 2) {
+                    sender.sendMessage(TartarusRiches.messages.notEnoughArgs);
+                    sender.sendMessage(TartarusRiches.messages.slotsArguments);
+                    return false;
+                }
+
+                ItemStack item = player.getInventory().getItemInMainHand();
+                if(item == null || item.getType().equals(Material.AIR)) {
+                    return false;
+                }
+                int slot = Integer.parseInt(args[1]);
+
+                TartarusRiches.utilities.changeMaxSlots(item, slot, player);
             }
         }
         return true;
