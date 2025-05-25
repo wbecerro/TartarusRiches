@@ -2,6 +2,7 @@ Config:
   baseGemChance: 0.1
   baseDoubleChance: 0
   baseGemSlots: 3
+  removeLevelCost: 10
 
 Messages:
   noPermission: "&b[&cMinería&b] &eNo tienes permiso para hacer esto."
@@ -26,6 +27,7 @@ Messages:
   maxSlots: "&b[&cMinería&b] &eNo puedes incrustar más gemas en este objeto."
   slotsChanged: "&b[&cMinería&b] &eEste objeto ahora puede soportar el poder de %slots% gemas."
   slotsArguments: "&b[&cMinería&b] &eEl uso es /tartarusriches slots <Huecos>."
+  notEnoughXP: "&b[&cMinería&b] &eNecesitas %levels% niveles de experiencia para quitar la gema."
   stats:
     - "&d&m-===- &b[&cMinería&b] &d&m-===-"
     - "&bProbabilidad de gemas: &e%gemChance%%"

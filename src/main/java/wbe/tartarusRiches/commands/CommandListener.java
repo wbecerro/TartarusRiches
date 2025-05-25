@@ -172,6 +172,11 @@ public class CommandListener implements CommandExecutor {
                     return false;
                 }
 
+                if(player.getLevel() < TartarusRiches.config.removeCost) {
+                    sender.sendMessage(TartarusRiches.messages.notEnoughXP
+                            .replace("%levels%", String.valueOf(TartarusRiches.config.removeCost)));
+                }
+
                 ItemStack item = player.getInventory().getItemInMainHand();
                 if(item == null || item.getType().equals(Material.AIR)) {
                     return false;

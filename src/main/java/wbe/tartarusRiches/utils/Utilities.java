@@ -345,6 +345,7 @@ public class Utilities {
 
         player.playSound(player.getLocation(), TartarusRiches.config.removeGemSound, 1F, 1F);
         player.sendMessage(TartarusRiches.messages.gemRemoved.replace("%slot%", String.valueOf(slot + 1)));
+        player.setLevel(player.getLevel() - TartarusRiches.config.removeCost);
         return true;
     }
 

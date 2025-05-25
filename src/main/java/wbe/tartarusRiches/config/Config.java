@@ -20,6 +20,7 @@ public class Config {
     public double baseGemChance;
     public double baseDoubleChance;
     public int baseGemSlots;
+    public int removeCost;
 
     public Sound doubleDropSound;
     public Sound gemDropSound;
@@ -58,6 +59,7 @@ public class Config {
         baseGemChance = config.getDouble("Config.baseGemChance");
         baseDoubleChance = config.getDouble("Config.baseDoubleChance");
         baseGemSlots = config.getInt("Config.baseGemSlots");
+        removeCost = config.getInt("Config.removeCost");
 
         doubleDropSound = Sound.valueOf(config.getString("Sounds.doubleDropSound"));
         gemDropSound = Sound.valueOf(config.getString("Sounds.gemDropSound"));

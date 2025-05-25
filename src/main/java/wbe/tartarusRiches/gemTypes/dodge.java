@@ -3,6 +3,7 @@ package wbe.tartarusRiches.gemTypes;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageEvent;
+import wbe.tartarusRiches.TartarusRiches;
 
 import java.util.Random;
 
@@ -31,7 +32,7 @@ public class dodge extends GemType {
             return;
         }
 
-
+        player.playSound(player.getLocation(), TartarusRiches.config.dodgeSound, 1F, 1F);
         ((EntityDamageEvent) event).setCancelled(true);
     }
 }

@@ -29,6 +29,7 @@ public class Messages {
     public String maxSlots;
     public String slotsChanged;
     public String slotsArguments;
+    public String notEnoughXP;
     public List<String> stats = new ArrayList<>();
     public List<String> help = new ArrayList<>();
 
@@ -55,6 +56,7 @@ public class Messages {
         maxSlots = config.getString("Messages.maxSlots").replace("&", "§");
         slotsChanged = config.getString("Messages.slotsChanged").replace("&", "§");
         slotsArguments = config.getString("Messages.slotsArguments").replace("&", "§");
+        notEnoughXP = config.getString("Messages.notEnoughXP").replace("&", "§");
         stats = config.getStringList("Messages.stats");
         help = config.getStringList("Messages.help");
     }
