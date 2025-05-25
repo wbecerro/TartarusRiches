@@ -53,6 +53,8 @@ Sounds:
   gemDropSound: BLOCK_AMETHYST_CLUSTER_FALL
   removeGemSound: BLOCK_RESPAWN_ANCHOR_DEPLETE
   addGemSound: BLOCK_RESPAWN_ANCHOR_CHARGE
+  dodgeSound: ENTITY_BREEZE_SLIDE
+  criticSound: ENTITY_ZOMBIE_ATTACK_IRON_DOOR
 
 Items:
   slotsTitle: "&7&m-=-&d Gemas &7&m-=-"
@@ -72,7 +74,7 @@ Items:
     lore:
       - "&7"
       - "&7Parte de las riquezas del inframundo."
-      - "&7Extraído de las bóbedas de Hades."
+      - "&7Extraído de las bóvedas de Hades."
       - "%power%"
     glow: true
   gemCluster:

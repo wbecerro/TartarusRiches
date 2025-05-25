@@ -15,6 +15,10 @@ public class damageReduction extends GemType {
             return;
         }
 
+        if(!(((EntityDamageEvent) event).getEntity() instanceof Player)) {
+            return;
+        }
+
         double power = getGemPowerValue(player, "damagereduction");
         if(power <= 0) {
             return;

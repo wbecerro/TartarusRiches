@@ -265,6 +265,7 @@ public class Utilities {
         meta.getPersistentDataContainer().set(newGemKey, PersistentDataType.DOUBLE, effectiveness);
         item.setItemMeta(meta);
 
+        player.playSound(player.getLocation(), TartarusRiches.config.addGemSound, 1F, 1F);
         player.sendMessage(TartarusRiches.messages.gemApplied);
         return true;
     }
@@ -342,6 +343,7 @@ public class Utilities {
         Gemstone removedGemstone = new Gemstone(removedGem, removedEffectiveness);
         addItemToInventory(player, removedGemstone);
 
+        player.playSound(player.getLocation(), TartarusRiches.config.removeGemSound, 1F, 1F);
         player.sendMessage(TartarusRiches.messages.gemRemoved.replace("%slot%", String.valueOf(slot + 1)));
         return true;
     }

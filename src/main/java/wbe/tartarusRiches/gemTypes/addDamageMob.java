@@ -1,5 +1,6 @@
 package wbe.tartarusRiches.gemTypes;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -21,7 +22,7 @@ public class addDamageMob extends GemType {
             return;
         }
 
-        double power = getGemPowerValue(player, "adddamagemob");
+        double power = getGemPowerValue(player, "adddamagemobs");
         if(power <= 0) {
             return;
         }

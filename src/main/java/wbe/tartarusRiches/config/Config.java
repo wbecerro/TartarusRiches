@@ -25,6 +25,8 @@ public class Config {
     public Sound gemDropSound;
     public Sound removeGemSound;
     public Sound addGemSound;
+    public Sound dodgeSound;
+    public Sound criticSound;
 
     public String slotsTitle;
     public String slot;
@@ -61,6 +63,8 @@ public class Config {
         gemDropSound = Sound.valueOf(config.getString("Sounds.gemDropSound"));
         removeGemSound = Sound.valueOf(config.getString("Sounds.removeGemSound"));
         addGemSound = Sound.valueOf(config.getString("Sounds.addGemSound"));
+        dodgeSound = Sound.valueOf(config.getString("Sounds.dodgeSound"));
+        criticSound = Sound.valueOf(config.getString("Sounds.criticSound"));
 
         slotsTitle = config.getString("Items.slotsTitle").replace("&", "§");
         slot = config.getString("Items.slot");
@@ -119,7 +123,7 @@ public class Config {
                 skills = config.getStringList("Gems." + gem + ".skills");
                 return new mcMMOXP(skills);
             case "ADDDAMAGEMOBS":
-                config.getStringList("Gems." + gem + ".entites").stream().forEach((entity) -> {
+                config.getStringList("Gems." + gem + ".entities").stream().forEach((entity) -> {
                     entities.add(EntityType.valueOf(entity.toUpperCase()));
                 });
                 return new addDamageMob(entities);

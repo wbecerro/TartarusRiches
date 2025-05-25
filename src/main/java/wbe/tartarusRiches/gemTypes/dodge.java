@@ -17,6 +17,10 @@ public class dodge extends GemType {
             return;
         }
 
+        if(!(((EntityDamageEvent) event).getEntity() instanceof Player)) {
+            return;
+        }
+
         double power = getGemPowerValue(player, "dodge");
         if(power <= 0) {
             return;
@@ -27,6 +31,7 @@ public class dodge extends GemType {
             return;
         }
 
-        ((EntityDamageEvent) event).setDamage(0);
+
+        ((EntityDamageEvent) event).setCancelled(true);
     }
 }
