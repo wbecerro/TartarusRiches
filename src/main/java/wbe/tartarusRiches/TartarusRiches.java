@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import wbe.tartarusRiches.commands.CommandListener;
+import wbe.tartarusRiches.commands.TabListener;
 import wbe.tartarusRiches.config.Config;
 import wbe.tartarusRiches.config.Messages;
 import wbe.tartarusRiches.listeners.EventListeners;
@@ -17,6 +18,8 @@ public final class TartarusRiches extends JavaPlugin {
     private FileConfiguration configuration;
 
     private CommandListener commandListener;
+
+    private TabListener tabListener;
 
     private EventListeners eventListeners;
 
@@ -40,6 +43,8 @@ public final class TartarusRiches extends JavaPlugin {
 
         commandListener = new CommandListener();
         getCommand("tartarusriches").setExecutor(commandListener);
+        tabListener = new TabListener();
+        getCommand("tartarusriches").setTabCompleter(tabListener);
         eventListeners = new EventListeners();
         eventListeners.initializeListeners();
     }
