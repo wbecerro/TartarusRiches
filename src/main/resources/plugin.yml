@@ -3,8 +3,7 @@ version: 1.0
 main: wbe.tartarusRiches.TartarusRiches
 api-version: 1.21
 author: wbe
-softdepend: [PlaceholderAPI]
-depend: [mcMMO, LaboursOfHercules]
+softdepend: [PlaceholderAPI, mcMMO, LaboursOfHercules, MythicMobs, DeathOath]
 commands:
   TartarusRiches:
     description: TartarusRiches main command
