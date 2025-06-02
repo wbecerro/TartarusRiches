@@ -12,8 +12,8 @@ import java.util.Random;
 
 public class doubleLabour extends GemType {
 
-    public doubleLabour() {
-        super();
+    public doubleLabour(String id) {
+        super(id);
     }
 
     public void applyEffect(Player player, Event event) {

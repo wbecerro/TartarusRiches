@@ -6,12 +6,16 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class addDamage extends GemType {
 
-    public addDamage() {
-        super();
+    public addDamage(String id) {
+        super(id);
     }
 
     public void applyEffect(Player player, Event event) {
         if(!(event instanceof EntityDamageByEntityEvent)) {
+            return;
+        }
+
+        if(!(((EntityDamageByEntityEvent) event).getDamager() instanceof Player)) {
             return;
         }
 

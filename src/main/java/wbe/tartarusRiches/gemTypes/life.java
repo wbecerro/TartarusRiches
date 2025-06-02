@@ -1,5 +1,6 @@
 package wbe.tartarusRiches.gemTypes;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import wbe.deathoath.events.PlayerLoseLifeEvent;
@@ -8,8 +9,8 @@ import java.util.Random;
 
 public class life extends GemType {
 
-    public life() {
-        super();
+    public life(String id) {
+        super(id);
     }
 
     public void applyEffect(Player player, Event event) {

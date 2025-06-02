@@ -6,8 +6,8 @@ import org.bukkit.event.player.PlayerExpChangeEvent;
 
 public class xp extends GemType {
 
-    public xp() {
-        super();
+    public xp(String id) {
+        super(id);
     }
 
     public void applyEffect(Player player, Event event) {

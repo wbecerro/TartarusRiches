@@ -1,6 +1,6 @@
 package wbe.tartarusRiches.listeners;
 
-import org.bukkit.Material;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -36,7 +36,7 @@ public class EntityDamageByEntityListeners implements Listener {
             return;
         }
 
-        for(Gem gem : TartarusRiches.config.gemList) {
+        for(Gem gem : TartarusRiches.utilities.getPlayerAppliedGems(player.getInventory())) {
             gem.getType().applyEffect(player, event);
         }
     }

@@ -69,7 +69,7 @@ public class CommandListener implements CommandExecutor {
                     sender.sendMessage(TartarusRiches.messages.invalidMaterial);
                     return false;
                 }
-                int gemChance = Integer.valueOf(args[2]);
+                double gemChance = Double.valueOf(args[2]);
 
                 Pickaxe pickaxe = new Pickaxe(material, gemChance);
                 if(args.length > 3) {
@@ -136,7 +136,7 @@ public class CommandListener implements CommandExecutor {
                     return false;
                 }
 
-                TartarusRiches.utilities.addGemChance(player.getInventory().getItemInMainHand(), Integer.valueOf(args[1]));
+                TartarusRiches.utilities.addGemChance(player.getInventory().getItemInMainHand(), Double.valueOf(args[1]));
                 player.sendMessage(TartarusRiches.messages.gemChanceAdded);
             } else if(args[0].equalsIgnoreCase("double")) {
                 if(!sender.hasPermission("tartarusriches.command.double")) {
@@ -150,7 +150,7 @@ public class CommandListener implements CommandExecutor {
                     return false;
                 }
 
-                TartarusRiches.utilities.addDoubleDropChance(player.getInventory().getItemInMainHand(), Integer.valueOf(args[1]));
+                TartarusRiches.utilities.addDoubleDropChance(player.getInventory().getItemInMainHand(), Double.valueOf(args[1]));
                 player.sendMessage(TartarusRiches.messages.doubleAdded);
             } else if(args[0].equalsIgnoreCase("reload")) {
                 if(!sender.hasPermission("tartarusriches.command.reload")) {

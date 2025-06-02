@@ -60,7 +60,7 @@ Sounds:
 
 Items:
   slotsTitle: "&7&m-=-&d Gemas &7&m-=-"
-  slot: "%color%[%power%%%icon%]"
+  slot: "%color%[%icon%%power%%]"
   pickaxe:
     name: "&f&l🌙 &5&lNox Aeterna &f&l🌙"
     lore:

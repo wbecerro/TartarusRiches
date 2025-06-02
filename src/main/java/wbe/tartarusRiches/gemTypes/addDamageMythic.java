@@ -8,8 +8,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class addDamageMythic extends GemType {
 
-    public addDamageMythic() {
-        super();
+    public addDamageMythic(String id) {
+        super(id);
     }
 
     public void applyEffect(Player player, Event event) {
@@ -18,6 +18,10 @@ public class addDamageMythic extends GemType {
         }
 
         if(!(event instanceof EntityDamageByEntityEvent)) {
+            return;
+        }
+
+        if(!(((EntityDamageByEntityEvent) event).getDamager() instanceof Player)) {
             return;
         }
 

@@ -2,7 +2,6 @@ package wbe.tartarusRiches.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
-import wbe.deathoath.listeners.PlayerLoseLifeListeners;
 import wbe.tartarusRiches.TartarusRiches;
 
 public class EventListeners {

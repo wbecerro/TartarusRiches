@@ -22,7 +22,7 @@ public class EntityDamageListeners implements Listener {
 
         Player player = (Player) event.getEntity();
 
-        for(Gem gem : TartarusRiches.config.gemList) {
+        for(Gem gem : TartarusRiches.utilities.getPlayerAppliedGems(player.getInventory())) {
             gem.getType().applyEffect(player, event);
         }
     }

@@ -12,13 +12,17 @@ public class addDamageMob extends GemType {
 
     private List<EntityType> entities;
 
-    public addDamageMob(List<EntityType> entities) {
-        super();
+    public addDamageMob(String id, List<EntityType> entities) {
+        super(id);
         this.entities = entities;
     }
 
     public void applyEffect(Player player, Event event) {
         if(!(event instanceof EntityDamageByEntityEvent)) {
+            return;
+        }
+
+        if(!(((EntityDamageByEntityEvent) event).getDamager() instanceof Player)) {
             return;
         }
 

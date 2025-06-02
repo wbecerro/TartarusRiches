@@ -120,34 +120,34 @@ public class Config {
         switch(type) {
             case "CRITIC":
                 multiplier = config.getDouble("Gems." + gem + ".multiplier");
-                return new critic(multiplier);
+                return new critic("critic", multiplier);
             case "MCMMOXP":
                 skills = config.getStringList("Gems." + gem + ".skills");
-                return new mcMMOXP(skills);
+                return new mcMMOXP("mcmmoxp", skills);
             case "ADDDAMAGEMOBS":
                 config.getStringList("Gems." + gem + ".entities").stream().forEach((entity) -> {
                     entities.add(EntityType.valueOf(entity.toUpperCase()));
                 });
-                return new addDamageMob(entities);
+                return new addDamageMob("adddamagemobs", entities);
             case "ADDDAMAGE":
-                return new addDamage();
+                return new addDamage("adddamage");
             case "ADDDAMAGEMYTHIC":
-                return new addDamageMythic();
+                return new addDamageMythic("adddamagemythic");
             case "DAMAGEREDUCTION":
-                return new damageReduction();
+                return new damageReduction("damagereduction");
             case "DODGE":
-                return new dodge();
+                return new dodge("dodge");
             case "DOUBLELABOUR":
-                return new doubleLabour();
+                return new doubleLabour("doublelabour");
             case "LIFE":
-                return new life();
+                return new life("life");
             case "THUNDER":
                 damage = config.getDouble("Gems." + gem + ".damage");
-                return new thunder(damage);
+                return new thunder("thunder", damage);
             case "XP":
-                return new xp();
+                return new xp("xp");
             default:
-                return new addDamage();
+                return new addDamage("adddamage");
         }
     }
 

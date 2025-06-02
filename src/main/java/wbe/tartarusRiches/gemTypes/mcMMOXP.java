@@ -2,6 +2,7 @@ package wbe.tartarusRiches.gemTypes;
 
 import com.gmail.nossr50.datatypes.skills.PrimarySkillType;
 import com.gmail.nossr50.events.experience.McMMOPlayerXpGainEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
@@ -9,10 +10,10 @@ import java.util.List;
 
 public class mcMMOXP extends GemType {
 
-    private List<String> skills;
+    public List<String> skills;
 
-    public mcMMOXP(List<String> skills) {
-        super();
+    public mcMMOXP(String id, List<String> skills) {
+        super(id);
         this.skills = skills;
     }
 

@@ -11,13 +11,17 @@ public class thunder extends GemType {
 
     private double damage;
 
-    public thunder(double damage) {
-        super();
+    public thunder(String id, double damage) {
+        super(id);
         this.damage = damage;
     }
 
     public void applyEffect(Player player, Event event) {
         if(!(event instanceof EntityDamageByEntityEvent)) {
+            return;
+        }
+
+        if(!(((EntityDamageByEntityEvent) event).getDamager() instanceof Player)) {
             return;
         }
 

@@ -11,13 +11,17 @@ public class critic extends GemType {
 
     private double multiplier;
 
-    public critic(double multiplier) {
-        super();
+    public critic(String id, double multiplier) {
+        super(id);
         this.multiplier = multiplier;
     }
 
     public void applyEffect(Player player, Event event) {
         if(!(event instanceof EntityDamageByEntityEvent)) {
+            return;
+        }
+
+        if(!(((EntityDamageByEntityEvent) event).getDamager() instanceof Player)) {
             return;
         }
 

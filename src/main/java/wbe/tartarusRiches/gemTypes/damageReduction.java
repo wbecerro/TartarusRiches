@@ -6,8 +6,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class damageReduction extends GemType {
 
-    public damageReduction() {
-        super();
+    public damageReduction(String id) {
+        super(id);
     }
 
     public void applyEffect(Player player, Event event) {

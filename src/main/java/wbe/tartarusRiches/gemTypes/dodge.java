@@ -9,8 +9,8 @@ import java.util.Random;
 
 public class dodge extends GemType {
 
-    public dodge() {
-        super();
+    public dodge(String id) {
+        super(id);
     }
 
     public void applyEffect(Player player, Event event) {

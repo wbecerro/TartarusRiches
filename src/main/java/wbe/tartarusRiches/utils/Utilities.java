@@ -12,10 +12,7 @@ import wbe.tartarusRiches.TartarusRiches;
 import wbe.tartarusRiches.config.Gem;
 import wbe.tartarusRiches.items.Gemstone;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Utilities {
 
@@ -197,8 +194,13 @@ public class Utilities {
         int slotsTitleLine = findLine(item, TartarusRiches.config.slotsTitle);
         NamespacedKey limitKey = new NamespacedKey(plugin, "slotsLimit");
         NamespacedKey slotsKey = new NamespacedKey(plugin, "slots");
+        NamespacedKey typeKey = new NamespacedKey(TartarusRiches.getInstance(), "gemType");
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
+
+        if(meta.getPersistentDataContainer().has(typeKey)) {
+            return false;
+        }
 
         if(lore == null) {
             lore = new ArrayList<>();
@@ -235,7 +237,7 @@ public class Utilities {
         for(int i=0;i<size;i++) {
             keyString.append(slots[i] + ".");
             Gem keyGem = TartarusRiches.config.gems.get(slots[i]);
-            NamespacedKey gemKey = new NamespacedKey(plugin, keyGem.getTypeName());
+            NamespacedKey gemKey = new NamespacedKey(plugin, keyGem.getId());
             double keyEffectiveness = meta.getPersistentDataContainer().get(gemKey, PersistentDataType.DOUBLE);
             loreString.append(TartarusRiches.config.slot.replace("%color%", keyGem.getSlotColor())
                     .replace("%power%", String.valueOf(keyEffectiveness))
@@ -261,7 +263,7 @@ public class Utilities {
         meta.setLore(lore);
 
         // Aplicamos la gema
-        NamespacedKey newGemKey = new NamespacedKey(plugin, gem.getTypeName());
+        NamespacedKey newGemKey = new NamespacedKey(plugin, gem.getId());
         meta.getPersistentDataContainer().set(newGemKey, PersistentDataType.DOUBLE, effectiveness);
         item.setItemMeta(meta);
 
@@ -320,7 +322,7 @@ public class Utilities {
 
                 keyString.append(slots[i] + ".");
                 Gem keyGem = TartarusRiches.config.gems.get(slots[i]);
-                NamespacedKey gemKey = new NamespacedKey(plugin, keyGem.getTypeName());
+                NamespacedKey gemKey = new NamespacedKey(plugin, keyGem.getId());
                 double keyEffectiveness = meta.getPersistentDataContainer().get(gemKey, PersistentDataType.DOUBLE);
                 loreString.append(TartarusRiches.config.slot.replace("%color%", keyGem.getSlotColor())
                         .replace("%power%", String.valueOf(keyEffectiveness))
@@ -332,7 +334,7 @@ public class Utilities {
             lore.set(slotsTitleLine, loreString.toString());
         }
 
-        removedKey = new NamespacedKey(plugin, removedGem.getTypeName());
+        removedKey = new NamespacedKey(plugin, removedGem.getId());
         double removedEffectiveness = 0;
         removedEffectiveness = meta.getPersistentDataContainer().get(removedKey, PersistentDataType.DOUBLE);
         meta.getPersistentDataContainer().remove(removedKey);
@@ -366,6 +368,56 @@ public class Utilities {
         meta.getPersistentDataContainer().set(limitKey, PersistentDataType.INTEGER, slots);
         item.setItemMeta(meta);
         player.sendMessage(TartarusRiches.messages.slotsChanged.replace("%slots%", String.valueOf(slots)));
+    }
+
+    public Set<Gem> getPlayerAppliedGems(PlayerInventory inventory) {
+        Set<Gem> gems = new HashSet<>();
+        ItemStack mainHand = inventory.getItemInMainHand();
+        ItemStack offHand = inventory.getItemInOffHand();
+        ItemStack[] armor = inventory.getArmorContents();
+
+        if(!mainHand.getType().equals(Material.AIR)) {
+            gems.addAll(getItemGems(mainHand));
+        }
+
+        if(!offHand.getType().equals(Material.AIR)) {
+            gems.addAll(getItemGems(offHand));
+        }
+
+        for(ItemStack item : armor) {
+            if(item == null) {
+                continue;
+            }
+            gems.addAll(getItemGems(item));
+        }
+
+        return gems;
+    }
+
+    private Set<Gem> getItemGems(ItemStack item) {
+        Set<Gem> gems = new HashSet<>();
+        ItemMeta meta = item.getItemMeta();
+        if(meta == null) {
+            return gems;
+        }
+
+        NamespacedKey slotsKey = new NamespacedKey(TartarusRiches.getInstance(), "slots");
+        if(!meta.getPersistentDataContainer().has(slotsKey)) {
+            return gems;
+        }
+
+        String[] slots = meta.getPersistentDataContainer().get(slotsKey, PersistentDataType.STRING).split("\\.");
+        int size = slots.length;
+        for(int i=0;i<size;i++) {
+            Gem gem = TartarusRiches.config.gems.get(slots[i]);
+            if(gem == null) {
+                continue;
+            }
+
+            gems.add(gem);
+        }
+
+        return gems;
     }
 
     private int findLine(ItemStack item, String line) {

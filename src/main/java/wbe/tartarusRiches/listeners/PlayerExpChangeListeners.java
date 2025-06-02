@@ -14,7 +14,7 @@ public class PlayerExpChangeListeners implements Listener {
     public void applyGemstonesEffect(PlayerExpChangeEvent event) {
         Player player = event.getPlayer();
 
-        for(Gem gem : TartarusRiches.config.gemList) {
+        for(Gem gem : TartarusRiches.utilities.getPlayerAppliedGems(player.getInventory())) {
             gem.getType().applyEffect(player, event);
         }
     }
