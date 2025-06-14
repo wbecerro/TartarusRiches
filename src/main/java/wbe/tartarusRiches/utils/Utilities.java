@@ -194,11 +194,11 @@ public class Utilities {
         int slotsTitleLine = findLine(item, TartarusRiches.config.slotsTitle);
         NamespacedKey limitKey = new NamespacedKey(plugin, "slotsLimit");
         NamespacedKey slotsKey = new NamespacedKey(plugin, "slots");
-        NamespacedKey typeKey = new NamespacedKey(TartarusRiches.getInstance(), "gemType");
+        NamespacedKey newGemKey = new NamespacedKey(plugin, gem.getId());
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
 
-        if(meta.getPersistentDataContainer().has(typeKey)) {
+        if(meta.getPersistentDataContainer().has(newGemKey)) {
             return false;
         }
 
@@ -263,7 +263,6 @@ public class Utilities {
         meta.setLore(lore);
 
         // Aplicamos la gema
-        NamespacedKey newGemKey = new NamespacedKey(plugin, gem.getId());
         meta.getPersistentDataContainer().set(newGemKey, PersistentDataType.DOUBLE, effectiveness);
         item.setItemMeta(meta);
 
@@ -272,12 +271,43 @@ public class Utilities {
         return true;
     }
 
+    public boolean removeAllGems(ItemStack item, Player player) {
+        NamespacedKey slotsKey = new NamespacedKey(plugin, "slots");
+        ItemMeta meta = item.getItemMeta();
+        if(meta == null) {
+            return false;
+        }
+
+        if(!meta.getPersistentDataContainer().has(slotsKey)) {
+            return false;
+        }
+
+        String[] slots = meta.getPersistentDataContainer().get(slotsKey, PersistentDataType.STRING).split("\\.");
+        int size = slots.length;
+        if(player.getLevel() < TartarusRiches.config.removeCost * size) {
+            player.sendMessage(TartarusRiches.messages.notEnoughXP
+                    .replace("%levels%", String.valueOf(TartarusRiches.config.removeCost * size)));
+            return false;
+        }
+
+        boolean result = true;
+        for(int i=size;i>=1;i--) {
+            result = removeGem(item, i, player);
+        }
+
+        return result;
+    }
+
     public boolean removeGem(ItemStack item, int slot, Player player) {
         int slotsTitleLine = findLine(item, TartarusRiches.config.slotsTitle);
         NamespacedKey limitKey = new NamespacedKey(plugin, "slotsLimit");
         NamespacedKey slotsKey = new NamespacedKey(plugin, "slots");
         ItemMeta meta = item.getItemMeta();
         if(meta == null) {
+            return false;
+        }
+
+        if(player.getLevel() < TartarusRiches.config.removeCost) {
             return false;
         }
 
@@ -346,8 +376,8 @@ public class Utilities {
         addItemToInventory(player, removedGemstone);
 
         player.playSound(player.getLocation(), TartarusRiches.config.removeGemSound, 1F, 1F);
-        player.sendMessage(TartarusRiches.messages.gemRemoved.replace("%slot%", String.valueOf(slot + 1)));
         player.setLevel(player.getLevel() - TartarusRiches.config.removeCost);
+        player.sendMessage(TartarusRiches.messages.gemRemoved.replace("%slot%", String.valueOf(slot + 1)));
         return true;
     }
 

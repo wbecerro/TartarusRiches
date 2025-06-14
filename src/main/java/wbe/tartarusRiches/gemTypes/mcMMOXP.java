@@ -33,7 +33,7 @@ public class mcMMOXP extends GemType {
             }
 
             float xp = ((McMMOPlayerXpGainEvent) event).getRawXpGained();
-            xp = (float) (xp * power/100 + 1);
+            xp = (float) (xp * (power/100 + 1));
             ((McMMOPlayerXpGainEvent) event).setRawXpGained(xp);
             return;
         }

@@ -181,8 +181,13 @@ public class CommandListener implements CommandExecutor {
                 if(item == null || item.getType().equals(Material.AIR)) {
                     return false;
                 }
-                int slot = Integer.parseInt(args[1]);
 
+                if(args[1].equalsIgnoreCase("all")) {
+                    TartarusRiches.utilities.removeAllGems(item, player);
+                    return true;
+                }
+
+                int slot = Integer.parseInt(args[1]);
                 TartarusRiches.utilities.removeGem(item, slot, player);
             } else if(args[0].equalsIgnoreCase("slots")) {
                 if(!sender.hasPermission("tartarusriches.command.slots")) {

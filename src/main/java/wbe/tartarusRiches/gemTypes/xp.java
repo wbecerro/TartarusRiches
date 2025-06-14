@@ -21,7 +21,7 @@ public class xp extends GemType {
         }
 
         int xp = ((PlayerExpChangeEvent) event).getAmount();
-        xp = (int) (xp * power/100 + 1);
+        xp = (int) (xp * (power/100 + 1));
         ((PlayerExpChangeEvent) event).setAmount(xp);
     }
 }

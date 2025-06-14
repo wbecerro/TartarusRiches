@@ -1,5 +1,6 @@
 package wbe.tartarusRiches.gemTypes;
 
+import io.lumine.mythic.bukkit.MythicBukkit;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -31,9 +32,9 @@ public class addDamageMythic extends GemType {
         }
 
         Entity entity = ((EntityDamageByEntityEvent) event).getEntity();
-        /*if(!MythicBukkit.inst().getMobManager().isMythicMob(entity)) {
+        if(!MythicBukkit.inst().getMobManager().isMythicMob(entity)) {
             return;
-        }*/
+        }
 
         double damage = ((EntityDamageByEntityEvent) event).getDamage();
         damage = damage * (power/100 + 1.0);

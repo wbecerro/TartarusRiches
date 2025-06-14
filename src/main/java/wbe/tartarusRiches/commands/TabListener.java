@@ -38,26 +38,39 @@ public class TabListener implements TabCompleter {
                 case "pickaxe":
                     List<String> materials = new ArrayList<>();
                     Arrays.asList(Material.values()).forEach((material -> {
-                        materials.add(material.toString());
+                        if(args[1].isEmpty()) {
+                            materials.add(material.toString());
+                        } else if(material.toString().startsWith(args[1])) {
+                            materials.add(material.toString());
+                        }
                     }));
                     completions.addAll(materials);
                     break;
                 case "cluster":
                     for(Player player : Bukkit.getOnlinePlayers()) {
-                        completions.add(player.getName());
+                        if(args[1].isEmpty()) {
+                            completions.add(player.getName());
+                        } else if(player.getName().startsWith(args[1])) {
+                            completions.add(player.getName());
+                        }
                     }
                     break;
                 case "gem":
                     for(Gem gem : TartarusRiches.config.gemList) {
-                        completions.add(gem.getId());
+                        if(args[1].isEmpty()) {
+                            completions.add(gem.getId());
+                        } else if(gem.getId().startsWith(args[1])) {
+                            completions.add(gem.getId());
+                        }
                     }
                     break;
-                case "gemChance":
+                case "gemchance":
                 case "double":
                     completions.add("<Probabilidad>");
                     break;
                 case "remove":
                     completions.add("<Hueco>");
+                    completions.add("all");
                     break;
                 case "slots":
                     completions.add("<Huecos>");
@@ -73,7 +86,11 @@ public class TabListener implements TabCompleter {
                     break;
                 case "gem":
                     for(Player player : Bukkit.getOnlinePlayers()) {
-                        completions.add(player.getName());
+                        if(args[2].isEmpty()) {
+                            completions.add(player.getName());
+                        } else if(player.getName().startsWith(args[2])) {
+                            completions.add(player.getName());
+                        }
                     }
                     break;
             }
@@ -84,7 +101,11 @@ public class TabListener implements TabCompleter {
             switch(args[0].toLowerCase()) {
                 case "pickaxe":
                     for(Player player : Bukkit.getOnlinePlayers()) {
-                        completions.add(player.getName());
+                        if(args[3].isEmpty()) {
+                            completions.add(player.getName());
+                        } else if(player.getName().startsWith(args[3])) {
+                            completions.add(player.getName());
+                        }
                     }
                     break;
                 case "gem":
