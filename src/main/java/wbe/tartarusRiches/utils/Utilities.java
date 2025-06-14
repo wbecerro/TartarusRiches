@@ -3,6 +3,7 @@ package wbe.tartarusRiches.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -422,6 +423,13 @@ public class Utilities {
         }
 
         return gems;
+    }
+
+    public BlockFace getRandomFace() {
+        BlockFace[] faces = BlockFace.values();
+        int length = faces.length;
+        Random random = new Random();
+        return faces[random.nextInt(length)];
     }
 
     private Set<Gem> getItemGems(ItemStack item) {

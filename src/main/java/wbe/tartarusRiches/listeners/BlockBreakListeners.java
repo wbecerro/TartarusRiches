@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import wbe.tartarusRiches.TartarusRiches;
+import wbe.tartarusRiches.config.Gem;
 import wbe.tartarusRiches.config.Ore;
 import wbe.tartarusRiches.events.PlayerReceiveGemEvent;
 
@@ -46,6 +47,19 @@ public class BlockBreakListeners implements Listener {
 
         if(random.nextDouble(100) <= gemChance) {
             TartarusRiches.getInstance().getServer().getPluginManager().callEvent(new PlayerReceiveGemEvent(player, brokenOre, event.getBlock()));
+        }
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void applyGemstonesEffect(BlockBreakEvent event) {
+        if(event.isCancelled()) {
+            return;
+        }
+
+        Player player = event.getPlayer();
+
+        for(Gem gem : TartarusRiches.utilities.getPlayerAppliedGems(player.getInventory())) {
+            gem.getType().applyEffect(player, event);
         }
     }
 }

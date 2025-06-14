@@ -28,6 +28,7 @@ public class Config {
     public Sound addGemSound;
     public Sound dodgeSound;
     public Sound criticSound;
+    public Sound transformSound;
 
     public String slotsTitle;
     public String slot;
@@ -67,6 +68,7 @@ public class Config {
         addGemSound = Sound.valueOf(config.getString("Sounds.addGemSound"));
         dodgeSound = Sound.valueOf(config.getString("Sounds.dodgeSound"));
         criticSound = Sound.valueOf(config.getString("Sounds.criticSound"));
+        transformSound = Sound.valueOf(config.getString("Sounds.transformationSound"));
 
         slotsTitle = config.getString("Items.slotsTitle").replace("&", "§");
         slot = config.getString("Items.slot");
@@ -116,6 +118,7 @@ public class Config {
         double damage;
         List<String> skills;
         List<EntityType> entities = new ArrayList<>();
+        List<Material> materials = new ArrayList<>();
 
         switch(type) {
             case "CRITIC":
@@ -146,6 +149,11 @@ public class Config {
                 return new thunder("thunder", damage);
             case "XP":
                 return new xp("xp");
+            case "TRANSFORMATION":
+                config.getStringList("Gems." + gem + ".transformations").stream().forEach((material) -> {
+                    materials.add(Material.valueOf(material.toUpperCase()));
+                });
+                return new transformation("transform", materials);
             default:
                 return new addDamage("adddamage");
         }

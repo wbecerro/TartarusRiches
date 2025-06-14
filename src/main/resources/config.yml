@@ -57,6 +57,7 @@ Sounds:
   addGemSound: BLOCK_RESPAWN_ANCHOR_CHARGE
   dodgeSound: ENTITY_BREEZE_SLIDE
   criticSound: ENTITY_ZOMBIE_ATTACK_IRON_DOOR
+  transformationSound: ENTITY_ZOMBIE_VILLAGER_CONVERTED
 
 Items:
   slotsTitle: "&7&m-=-&d Gemas &7&m-=-"
