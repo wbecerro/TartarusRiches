@@ -18,6 +18,7 @@ public class EventListeners {
         pluginManager.registerEvents(new EntityDamageListeners(), plugin);
         pluginManager.registerEvents(new EntityDamageByEntityListeners(), plugin);
         pluginManager.registerEvents(new PlayerExpChangeListeners(), plugin);
+        pluginManager.registerEvents(new EntityResurrectListeners(), plugin);
 
         if(Bukkit.getPluginManager().getPlugin("LaboursOfHercules") != null) {
             pluginManager.registerEvents(new CompleteLabourListeners(), plugin);

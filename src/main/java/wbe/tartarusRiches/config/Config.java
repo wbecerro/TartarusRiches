@@ -154,6 +154,8 @@ public class Config {
                     materials.add(Material.valueOf(material.toUpperCase()));
                 });
                 return new transformation("transform", materials);
+            case "SAVETOTEM":
+                return new saveTotem("savetotem");
             default:
                 return new addDamage("adddamage");
         }
