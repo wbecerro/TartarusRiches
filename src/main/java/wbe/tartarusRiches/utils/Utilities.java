@@ -104,6 +104,11 @@ public class Utilities {
             chance += getItemGemChance(item);
         }
 
+        NamespacedKey baseDoubleKey = new NamespacedKey(plugin, "gemChance");
+        if(player.getPersistentDataContainer().has(baseDoubleKey)) {
+            chance += player.getPersistentDataContainer().get(baseDoubleKey, PersistentDataType.DOUBLE);
+        }
+
         return chance;
     }
 
@@ -144,6 +149,11 @@ public class Utilities {
             chance += getItemDoubleChance(item);
         }
 
+        NamespacedKey baseDoubleKey = new NamespacedKey(plugin, "doubleChance");
+        if(player.getPersistentDataContainer().has(baseDoubleKey)) {
+            chance += player.getPersistentDataContainer().get(baseDoubleKey, PersistentDataType.DOUBLE);
+        }
+
         return chance;
     }
 
@@ -175,6 +185,60 @@ public class Utilities {
         }
 
         return gems;
+    }
+
+    /**
+     * Método para añadir probabilidad de gemas o doble recompensas a un jugador.
+     *
+     * @param player Jugador al que añadir
+     * @param chance Probabiliad a añadir
+     * @param type Tipo de probabilidad 0 -> gemas, 1 -> doble
+     */
+    public void addChanceToPlayer(Player player, double chance, int type) {
+        NamespacedKey key;
+        switch(type) {
+            case 0:
+                key = new NamespacedKey(plugin, "gemChance");
+                break;
+            default:
+                key = new NamespacedKey(plugin, "doubleChance");
+                break;
+        }
+
+        if(player.getPersistentDataContainer().has(key)) {
+            double playerChance = player.getPersistentDataContainer().get(key, PersistentDataType.DOUBLE);
+            playerChance += chance;
+            player.getPersistentDataContainer().set(key, PersistentDataType.DOUBLE, playerChance);
+        } else {
+            player.getPersistentDataContainer().set(key, PersistentDataType.DOUBLE, chance);
+        }
+    }
+
+    /**
+     * Método para quitar probabilidad de gemas o doble recompensas a un jugador.
+     *
+     * @param player Jugador al que quitar
+     * @param chance Probabiliad a quitar
+     * @param type Tipo de probabilidad 0 -> gemas, 1 -> doble
+     */
+    public void removeChanceFromPlayer(Player player, double chance, int type) {
+        NamespacedKey key;
+        switch(type) {
+            case 0:
+                key = new NamespacedKey(plugin, "gemChance");
+                break;
+            default:
+                key = new NamespacedKey(plugin, "doubleChance");
+                break;
+        }
+
+        if(!player.getPersistentDataContainer().has(key)) {
+            return;
+        }
+
+        double playerChance = player.getPersistentDataContainer().get(key, PersistentDataType.DOUBLE);
+        playerChance -= chance;
+        player.getPersistentDataContainer().set(key, PersistentDataType.DOUBLE, playerChance);
     }
 
     public Gemstone generateGemstone(Gem gem) {
