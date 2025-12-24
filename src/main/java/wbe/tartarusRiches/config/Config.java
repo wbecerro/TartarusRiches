@@ -29,6 +29,7 @@ public class Config {
     public Sound dodgeSound;
     public Sound criticSound;
     public Sound transformSound;
+    public Sound changeModeSound;
 
     public String slotsTitle;
     public String slot;
@@ -69,6 +70,7 @@ public class Config {
         dodgeSound = Sound.valueOf(config.getString("Sounds.dodgeSound"));
         criticSound = Sound.valueOf(config.getString("Sounds.criticSound"));
         transformSound = Sound.valueOf(config.getString("Sounds.transformationSound"));
+        changeModeSound = Sound.valueOf(config.getString("Sounds.changeModeSound"));
 
         slotsTitle = config.getString("Items.slotsTitle").replace("&", "§");
         slot = config.getString("Items.slot");

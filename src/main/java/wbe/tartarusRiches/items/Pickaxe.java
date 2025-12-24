@@ -35,6 +35,9 @@ public class Pickaxe extends ItemStack {
         NamespacedKey gemKey = new NamespacedKey(TartarusRiches.getInstance(), "gemChance");
         meta.getPersistentDataContainer().set(gemKey, PersistentDataType.DOUBLE, gemChance);
 
+        NamespacedKey fortuneKey = new NamespacedKey(TartarusRiches.getInstance(), "fortuneLevel");
+        meta.getPersistentDataContainer().set(fortuneKey, PersistentDataType.INTEGER, 0);
+
         setItemMeta(meta);
     }
 }

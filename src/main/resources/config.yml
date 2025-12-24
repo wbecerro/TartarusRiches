@@ -28,6 +28,7 @@ Messages:
   slotsChanged: "&b[&cMinería&b] &eEste objeto ahora puede soportar el poder de %slots% gemas."
   slotsArguments: "&b[&cMinería&b] &eEl uso es /tartarusriches slots <Huecos>."
   notEnoughXP: "&b[&cMinería&b] &eNecesitas %levels% niveles de experiencia para quitar la gema."
+  modeChanged: "&d&lModo cambiado"
   stats:
     - "&d&m-===- &b[&cMinería&b] &d&m-===-"
     - "&bProbabilidad de gemas: &e%gemChance%%"
@@ -58,6 +59,7 @@ Sounds:
   dodgeSound: ENTITY_BREEZE_SLIDE
   criticSound: ENTITY_ZOMBIE_ATTACK_IRON_DOOR
   transformationSound: ENTITY_ZOMBIE_VILLAGER_CONVERTED
+  changeModeSound: BLOCK_LEVER_CLICK
 
 Items:
   slotsTitle: "&7&m-=-&d Gemas &7&m-=-"
@@ -69,6 +71,7 @@ Items:
       - "&7Pico imbuido con la esencia de la"
       - "&7noche misma, Nix. Permite descubrir"
       - "&7los tesoros del inframundo."
+      - "&cSHIFT + Soltar &7para alternar."
       - "&7"
     gemChance: "&7Probabilidad de gema: &d%gem_chance%%"
     doubleChance: "&7Probabilidad de doble: &d%double_chance%%"
