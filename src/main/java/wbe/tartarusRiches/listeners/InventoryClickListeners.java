@@ -131,4 +131,56 @@ public class InventoryClickListeners implements Listener {
         event.setCancelled(true);
         player.updateInventory();
     }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void applyExtraSlots(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        if(!event.getAction().equals(InventoryAction.SWAP_WITH_CURSOR)) {
+            return;
+        }
+
+        ItemStack extraSlotItem = event.getCursor();
+        ItemMeta meta = extraSlotItem.getItemMeta();
+        if(meta == null) {
+            return;
+        }
+
+        NamespacedKey extraSlotKey = new NamespacedKey(TartarusRiches.getInstance(), "extraSlotItem");
+        if(!meta.getPersistentDataContainer().has(extraSlotKey)) {
+            return;
+        }
+
+        ItemStack inventoryItem = event.getCurrentItem();
+        ItemMeta inventoryItemMeta = inventoryItem.getItemMeta();
+        if(inventoryItemMeta == null) {
+            inventoryItemMeta = Bukkit.getItemFactory().getItemMeta(inventoryItem.getType());
+        }
+
+        if(inventoryItem.getAmount() != 1) {
+            return;
+        }
+
+        String name = "";
+        if(!inventoryItemMeta.hasDisplayName()) {
+            name = inventoryItemMeta.getItemName();
+        } else {
+            name = inventoryItemMeta.getDisplayName();
+        }
+
+        inventoryItemMeta.setDisplayName(name);
+        inventoryItem.setItemMeta(inventoryItemMeta);
+
+        ItemStack newItem = new ItemStack(inventoryItem.getType());
+        newItem.setItemMeta(inventoryItemMeta);
+        newItem.getItemMeta().setLore(inventoryItemMeta.getLore());
+
+        int slots = TartarusRiches.utilities.getItemMaxSlots(newItem) + 1;
+        TartarusRiches.utilities.changeMaxSlots(newItem, slots, player);
+
+        extraSlotItem.setAmount(extraSlotItem.getAmount() - 1);
+        event.setCurrentItem(newItem);
+        player.setItemOnCursor(extraSlotItem);
+        event.setCancelled(true);
+        player.updateInventory();
+    }
 }

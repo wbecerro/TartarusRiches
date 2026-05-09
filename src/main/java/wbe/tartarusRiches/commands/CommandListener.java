@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import wbe.tartarusRiches.TartarusRiches;
 import wbe.tartarusRiches.config.Gem;
 import wbe.tartarusRiches.items.Cluster;
+import wbe.tartarusRiches.items.ExtraSlotItem;
 import wbe.tartarusRiches.items.Gemstone;
 import wbe.tartarusRiches.items.Pickaxe;
 
@@ -208,6 +209,19 @@ public class CommandListener implements CommandExecutor {
                 int slot = Integer.parseInt(args[1]);
 
                 TartarusRiches.utilities.changeMaxSlots(item, slot, player);
+            } else if(args[0].equalsIgnoreCase("extraSlotItem")) {
+                if(!sender.hasPermission("tartarusriches.command.extraSlotItem")) {
+                    sender.sendMessage(TartarusRiches.messages.noPermission);
+                    return false;
+                }
+
+                ExtraSlotItem extraSlotItem = new ExtraSlotItem();
+                if(args.length > 1) {
+                    player = Bukkit.getPlayer(args[1]);
+                }
+
+                TartarusRiches.utilities.addItemToInventory(player, extraSlotItem);
+                player.sendMessage(TartarusRiches.messages.extraSlotItemGiven);
             }
         }
         return true;

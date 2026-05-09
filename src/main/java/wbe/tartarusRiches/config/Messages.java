@@ -22,6 +22,7 @@ public class Messages {
     public String doubleAdded;
     public String doubleArguments;
     public String clusterGiven;
+    public String extraSlotItemGiven;
     public String gemRemoved;
     public String removeArguments;
     public String gemApplied;
@@ -50,6 +51,7 @@ public class Messages {
         doubleAdded = config.getString("Messages.doubleAdded").replace("&", "§");
         doubleArguments = config.getString("Messages.doubleArguments").replace("&", "§");
         clusterGiven = config.getString("Messages.clusterGiven").replace("&", "§");
+        extraSlotItemGiven = config.getString("Messages.extraSlotItemGiven").replace("&", "§");
         gemRemoved = config.getString("Messages.gemRemoved").replace("&", "§");
         removeArguments = config.getString("Messages.removeArguments").replace("&", "§");
         gemApplied = config.getString("Messages.gemApplied").replace("&", "§");

@@ -1,20 +1,18 @@
 package wbe.tartarusRiches.listeners;
 
 import com.gmail.nossr50.mcMMO;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.inventory.ItemStack;
 import wbe.tartarusRiches.TartarusRiches;
 import wbe.tartarusRiches.config.Gem;
 import wbe.tartarusRiches.config.Ore;
 import wbe.tartarusRiches.events.PlayerReceiveGemEvent;
+import wbe.tartarusRiches.items.ExtraSlotItem;
 
-import java.util.Collection;
 import java.util.Random;
 
 public class BlockBreakListeners implements Listener {
@@ -29,6 +27,11 @@ public class BlockBreakListeners implements Listener {
             return;
         }
 
+        Random random = new Random();
+        if(random.nextDouble(100) < TartarusRiches.config.extraSlotItemChance) {
+            event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ExtraSlotItem());
+        }
+
         Material material = event.getBlock().getType();
         Ore brokenOre = null;
         for(Ore ore : TartarusRiches.config.ores) {
@@ -41,7 +44,6 @@ public class BlockBreakListeners implements Listener {
             return;
         }
 
-        Random random = new Random();
         Player player = event.getPlayer();
         double gemChance = TartarusRiches.utilities.getPlayerGemChance(player);
 

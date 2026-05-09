@@ -3,6 +3,7 @@ Config:
   baseDoubleChance: 0
   baseGemSlots: 3
   removeLevelCost: 10
+  extraSlotItemChance: 0.001
 
 Messages:
   noPermission: "&b[&cMinería&b] &eNo tienes permiso para hacer esto."
@@ -20,6 +21,7 @@ Messages:
   doubleAdded: "&b[&cMinería&b] &eSe ha añadido probabilidad de doble gema al objeto."
   doubleArguments: "&b[&cMinería&b] &eEl uso es /tartarusriches double <Probabilidad>."
   clusterGiven: "&b[&cMinería&b] &eHas conseguido una &8&lMena sin procesar&e."
+  extraSlotItemGiven: "&b[&cMinería&b] &eHas conseguido una &8&lEsencia de oscuridad&e."
   gemRemoved: "&b[&cMinería&b] &eHas quitado la gema del hueco %slot%."
   removeArguments: "&b[&cMinería&b] &eEl uso es /tartarusriches remove <Hueco>."
   gemApplied: "&b[&cMinería&b] &eHas incrustado la gema en el objeto."
@@ -39,6 +41,7 @@ Messages:
     - "&b/tartarusriches &eMuestra esta página."
     - "&b/tartarusriches pickaxe <Material> <Prob. Gema> [Jugador] &eDa un &5&lNox Aeterna&e."
     - "&b/tartarusriches cluster [Jugador] &eDa una &8&lMena sin procesar&e."
+    - "&b/tartarusriches extraSlotItem [Jugador] &eDa una &8&lEsencia de oscuridad&e."
     - "&b/tartarusriches list &eMuestra todas las gemas disponibles."
     - "&b/tartarusriches gem <Gema> [Jugador] [Efectividad] &eDa una gema a un jugador."
     - "&b/tartarusriches gemChance <Probabilidad> &eAñade probabilidad de gema al objeto."
@@ -95,6 +98,18 @@ Items:
     glow: true
     min: 1
     max: 3
+  extraSlotItem:
+    material: CHARCOAL
+    name: "&8&lEsencia de oscuridad"
+    lore:
+      - "&7"
+      - "&7Esencia extraída de la propia oscuridad"
+      - "&7que reside en el Tartaro. Puede ser aplicado"
+      - "&7a cualquier objeto para aumentar la cantidad"
+      - "&7de gemas que puede soportar."
+      - "&7"
+      - "&dPuede aplicarse infinitamente."
+    glow: true
 
 Gems:
   sapphire:

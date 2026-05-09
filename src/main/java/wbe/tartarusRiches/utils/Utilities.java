@@ -446,6 +446,21 @@ public class Utilities {
         return true;
     }
 
+    public int getItemMaxSlots(ItemStack item) {
+        NamespacedKey limitKey = new NamespacedKey(plugin, "slotsLimit");
+        ItemMeta meta = item.getItemMeta();
+
+        if(meta == null) {
+            return TartarusRiches.config.baseGemSlots;
+        }
+
+        if(!meta.getPersistentDataContainer().has(limitKey)) {
+            return TartarusRiches.config.baseGemSlots;
+        }
+
+        return meta.getPersistentDataContainer().get(limitKey, PersistentDataType.INTEGER);
+    }
+
     public void changeMaxSlots(ItemStack item, int slots, Player player) {
         NamespacedKey limitKey = new NamespacedKey(plugin, "slotsLimit");
         NamespacedKey slotsKey = new NamespacedKey(plugin, "slots");

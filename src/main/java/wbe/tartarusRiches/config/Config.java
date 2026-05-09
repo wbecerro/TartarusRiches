@@ -1,11 +1,9 @@
 package wbe.tartarusRiches.config;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
-import org.bukkit.potion.PotionEffectType;
 import wbe.tartarusRiches.gemTypes.*;
 
 import java.util.ArrayList;
@@ -21,6 +19,7 @@ public class Config {
     public double baseDoubleChance;
     public int baseGemSlots;
     public int removeCost;
+    public double extraSlotItemChance;
 
     public Sound doubleDropSound;
     public Sound gemDropSound;
@@ -50,6 +49,11 @@ public class Config {
     public int clusterMin;
     public int clusterMax;
 
+    public Material extraSlotMaterial;
+    public String extraSlotName;
+    public List<String> extraSlotLore = new ArrayList<>();
+    public boolean extraSlotGlow;
+
     public HashMap<String, Gem> gems = new HashMap<>();
     public List<Gem> gemList = new ArrayList<>();
     public List<Ore> ores = new ArrayList<>();
@@ -62,6 +66,7 @@ public class Config {
         baseDoubleChance = config.getDouble("Config.baseDoubleChance");
         baseGemSlots = config.getInt("Config.baseGemSlots");
         removeCost = config.getInt("Config.removeCost");
+        extraSlotItemChance = config.getDouble("Config.extraSlotItemChance");
 
         doubleDropSound = Sound.valueOf(config.getString("Sounds.doubleDropSound"));
         gemDropSound = Sound.valueOf(config.getString("Sounds.gemDropSound"));
@@ -90,6 +95,11 @@ public class Config {
         clusterGlow = config.getBoolean("Items.gemCluster.glow");
         clusterMin = config.getInt("Items.gemCluster.min");
         clusterMax = config.getInt("Items.gemCluster.max");
+
+        extraSlotMaterial = Material.valueOf(config.getString("Items.extraSlotItem.material"));
+        extraSlotName = config.getString("Items.extraSlotItem.name").replace("&", "§");
+        extraSlotLore = config.getStringList("Items.extraSlotItem.lore");
+        extraSlotGlow = config.getBoolean("Items.extraSlotItem.glow");
 
         loadGems();
         loadOres();
