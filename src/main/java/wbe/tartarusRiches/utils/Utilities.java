@@ -255,7 +255,7 @@ public class Utilities {
         }
     }
 
-    public boolean applyGem(Gem gem, ItemStack item, double effectiveness, Player player) {
+    public boolean applyGem(Gem gem, ItemStack item, double effectiveness, Player player, boolean force) {
         int slotsTitleLine = findLine(item, TartarusRiches.config.slotsTitle);
         NamespacedKey limitKey = new NamespacedKey(plugin, "slotsLimit");
         NamespacedKey slotsKey = new NamespacedKey(plugin, "slots");
@@ -331,8 +331,10 @@ public class Utilities {
         meta.getPersistentDataContainer().set(newGemKey, PersistentDataType.DOUBLE, effectiveness);
         item.setItemMeta(meta);
 
-        player.playSound(player.getLocation(), TartarusRiches.config.addGemSound, 1F, 1F);
-        player.sendMessage(TartarusRiches.messages.gemApplied);
+        if(!force) {
+            player.playSound(player.getLocation(), TartarusRiches.config.addGemSound, 1F, 1F);
+            player.sendMessage(TartarusRiches.messages.gemApplied);
+        }
         return true;
     }
 
@@ -511,7 +513,7 @@ public class Utilities {
         return faces[random.nextInt(length)];
     }
 
-    private Set<Gem> getItemGems(ItemStack item) {
+    public Set<Gem> getItemGems(ItemStack item) {
         Set<Gem> gems = new HashSet<>();
         ItemMeta meta = item.getItemMeta();
         if(meta == null) {

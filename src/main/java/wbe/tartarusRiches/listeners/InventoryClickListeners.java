@@ -119,7 +119,7 @@ public class InventoryClickListeners implements Listener {
         newItem.setItemMeta(inventoryItemMeta);
         newItem.getItemMeta().setLore(inventoryItemMeta.getLore());
 
-        boolean correct = TartarusRiches.utilities.applyGem(gem, newItem, effectiveness, player);
+        boolean correct = TartarusRiches.utilities.applyGem(gem, newItem, effectiveness, player, false);
         if(!correct) {
             event.setCancelled(true);
             return;
