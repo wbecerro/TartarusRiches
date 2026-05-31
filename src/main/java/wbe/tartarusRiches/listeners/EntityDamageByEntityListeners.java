@@ -1,6 +1,5 @@
 package wbe.tartarusRiches.listeners;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,10 +28,6 @@ public class EntityDamageByEntityListeners implements Listener {
         Player player = (Player) event.getDamager();
 
         if(event.getDamage() <= 0.0D) {
-            return;
-        }
-
-        if(player.getAttackCooldown() < 0.3) {
             return;
         }
 
