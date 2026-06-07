@@ -28,7 +28,7 @@ public class Gemstone extends ItemStack {
                 .replace("%icon%", gem.getSlotIcon()));
 
         ArrayList<String> lore = new ArrayList<>();
-        String power = gem.getPower().replace("%effectiveness%", String.valueOf(effectiveness));
+        String power = gem.getPower().replace("%effectiveness%", String.format("%.2f", effectiveness));
         for(String line : TartarusRiches.config.gemLore) {
             lore.add(line.replace("&", "§").replace("%power%", power));
         }

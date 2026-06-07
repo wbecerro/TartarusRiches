@@ -29,9 +29,9 @@ public class PapiExtension extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, String params) {
         if(params.equalsIgnoreCase("gemChance")) {
-            return String.valueOf(TartarusRiches.utilities.getPlayerGemChance(player.getPlayer()));
+            return String.format("%.2f", TartarusRiches.utilities.getPlayerGemChance(player.getPlayer()));
         } else if(params.equalsIgnoreCase("doubleChance")) {
-            return String.valueOf(TartarusRiches.utilities.getPlayerDoubleChance(player.getPlayer()));
+            return String.format("%.2f", TartarusRiches.utilities.getPlayerDoubleChance(player.getPlayer()));
         }
 
         return null;
