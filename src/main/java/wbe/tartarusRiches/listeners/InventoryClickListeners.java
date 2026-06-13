@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
@@ -16,6 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import wbe.tartarusRiches.TartarusRiches;
 import wbe.tartarusRiches.config.Gem;
+import wbe.tartarusRiches.config.SackGem;
 import wbe.tartarusRiches.items.Gemstone;
 
 public class InventoryClickListeners implements Listener {
@@ -80,6 +82,10 @@ public class InventoryClickListeners implements Listener {
             return;
         }
 
+        if(!event.getClick().equals(ClickType.LEFT)) {
+            return;
+        }
+
         ItemStack gemItem = event.getCursor();
         ItemMeta meta = gemItem.getItemMeta();
         if(meta == null) {
@@ -127,6 +133,55 @@ public class InventoryClickListeners implements Listener {
 
         gemItem.setAmount(gemItem.getAmount() - 1);
         event.setCurrentItem(newItem);
+        player.setItemOnCursor(gemItem);
+        event.setCancelled(true);
+        player.updateInventory();
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void addGemsToSack(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        if(!event.getAction().equals(InventoryAction.SWAP_WITH_CURSOR)) {
+            return;
+        }
+
+        if(!event.getClick().equals(ClickType.RIGHT)) {
+            return;
+        }
+
+        ItemStack gemItem = event.getCursor();
+        ItemStack sackItem = event.getCurrentItem();
+        ItemMeta meta = gemItem.getItemMeta();
+        if(meta == null) {
+            return;
+        }
+
+        NamespacedKey typeKey = new NamespacedKey(TartarusRiches.getInstance(), "gemType");
+        NamespacedKey effectivenessKey = new NamespacedKey(TartarusRiches.getInstance(), "effectiveness");
+        NamespacedKey sackKey = new NamespacedKey(TartarusRiches.getInstance(), "gemsack");
+        // Cursor es gema
+        if(!meta.getPersistentDataContainer().has(typeKey)) {
+            return;
+        }
+
+        // Current item es saco
+        if(!TartarusRiches.utilities.checkItem(sackItem, sackKey)) {
+            return;
+        }
+
+        Gem gem = TartarusRiches.config.gems.get(meta.getPersistentDataContainer().get(typeKey, PersistentDataType.STRING));
+        double effectiveness = meta.getPersistentDataContainer().get(effectivenessKey, PersistentDataType.DOUBLE);
+        SackGem sackGem = TartarusRiches.utilities.getSackGem(player, gem.getId());
+        if(sackGem == null) {
+            sackGem = new SackGem(gem, effectiveness);
+            TartarusRiches.playerSacks.get(player).add(sackGem);
+        } else {
+            sackGem.setEffectiveness(sackGem.getEffectiveness() + effectiveness);
+        }
+
+        player.playSound(player, TartarusRiches.config.addGemToSackSound, 1f, 1f);
+
+        gemItem.setAmount(gemItem.getAmount() - 1);
         player.setItemOnCursor(gemItem);
         event.setCancelled(true);
         player.updateInventory();
@@ -182,5 +237,39 @@ public class InventoryClickListeners implements Listener {
         player.setItemOnCursor(extraSlotItem);
         event.setCancelled(true);
         player.updateInventory();
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void cancelGemSackBundleFunctions(InventoryClickEvent event) {
+        if(event.getAction().equals(InventoryAction.valueOf("PICKUP_ALL_INTO_BUNDLE")) ||
+            event.getAction().equals(InventoryAction.valueOf("PICKUP_SOME_INTO_BUNDLE")) ||
+            event.getAction().equals(InventoryAction.valueOf("PICKUP_FROM_BUNDLE")) ||
+            event.getAction().equals(InventoryAction.valueOf("PLACE_ALL_INTO_BUNDLE")) ||
+            event.getAction().equals(InventoryAction.valueOf("PLACE_FROM_BUNDLE"))||
+            event.getAction().equals(InventoryAction.valueOf("PLACE_SOME_INTO_BUNDLE"))) {
+                ItemStack currentItem = event.getCurrentItem();
+                ItemStack cursor = event.getCursor();
+                NamespacedKey sackKey = new NamespacedKey(TartarusRiches.getInstance(), "gemsack");
+                if(!TartarusRiches.utilities.checkItem(currentItem, sackKey)) {
+                    if(!TartarusRiches.utilities.checkItem(cursor, sackKey)) {
+                        return;
+                    }
+                }
+
+                event.setCancelled(true);
+        } else if((event.getAction().toString().contains("PICKUP") || event.getAction().equals(InventoryAction.NOTHING)) && event.getClick().equals(ClickType.RIGHT)) {
+            ItemStack currentItem = event.getCurrentItem();
+            NamespacedKey sackKey = new NamespacedKey(TartarusRiches.getInstance(), "gemsack");
+            if(!TartarusRiches.utilities.checkItem(currentItem, sackKey)) {
+                return;
+            }
+
+            event.setCancelled(true);
+            try {
+                MenuListener.openMenu((Player) event.getWhoClicked(), 1);
+            } catch(Exception e) {
+                event.getWhoClicked().sendMessage(e.getMessage());
+            }
+        }
     }
 }

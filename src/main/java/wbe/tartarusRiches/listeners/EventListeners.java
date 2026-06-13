@@ -20,6 +20,9 @@ public class EventListeners {
         pluginManager.registerEvents(new PlayerExpChangeListeners(), plugin);
         pluginManager.registerEvents(new EntityResurrectListeners(), plugin);
         pluginManager.registerEvents(new PlayerDropItemListeners(), plugin);
+        pluginManager.registerEvents(new PlayerJoinListeners(), plugin);
+        pluginManager.registerEvents(new PlayerQuitListeners(), plugin);
+        pluginManager.registerEvents(new MenuListener(), plugin);
 
         if(Bukkit.getPluginManager().getPlugin("LaboursOfHercules") != null) {
             pluginManager.registerEvents(new CompleteLabourListeners(), plugin);

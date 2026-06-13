@@ -29,6 +29,12 @@ public class Config {
     public Sound criticSound;
     public Sound transformSound;
     public Sound changeModeSound;
+    public Sound addGemToSackSound;
+
+    public String menuTitle;
+    public Material borderMaterial;
+    public String menuGemName;
+    public List<String> menuGemLore = new ArrayList<>();
 
     public String slotsTitle;
     public String slot;
@@ -54,6 +60,11 @@ public class Config {
     public List<String> extraSlotLore = new ArrayList<>();
     public boolean extraSlotGlow;
 
+    public Material sackMaterial;
+    public String sackName;
+    public List<String> sackLore = new ArrayList<>();
+    public boolean sackGlow;
+
     public HashMap<String, Gem> gems = new HashMap<>();
     public List<Gem> gemList = new ArrayList<>();
     public List<Ore> ores = new ArrayList<>();
@@ -76,6 +87,12 @@ public class Config {
         criticSound = Sound.valueOf(config.getString("Sounds.criticSound"));
         transformSound = Sound.valueOf(config.getString("Sounds.transformationSound"));
         changeModeSound = Sound.valueOf(config.getString("Sounds.changeModeSound"));
+        addGemToSackSound = Sound.valueOf(config.getString("Sounds.addGemToSackSound"));
+
+        menuTitle = config.getString("Menu.title").replace("&", "§");
+        borderMaterial = Material.valueOf(config.getString("Menu.borderMaterial"));
+        menuGemName = config.getString("Menu.gemItem.name").replace("&", "§");
+        menuGemLore = config.getStringList("Menu.gemItem.lore");
 
         slotsTitle = config.getString("Items.slotsTitle").replace("&", "§");
         slot = config.getString("Items.slot");
@@ -100,6 +117,11 @@ public class Config {
         extraSlotName = config.getString("Items.extraSlotItem.name").replace("&", "§");
         extraSlotLore = config.getStringList("Items.extraSlotItem.lore");
         extraSlotGlow = config.getBoolean("Items.extraSlotItem.glow");
+
+        sackMaterial = Material.valueOf(config.getString("Items.sack.material"));
+        sackName = config.getString("Items.sack.name").replace("&", "§");
+        sackLore = config.getStringList("Items.sack.lore");
+        sackGlow = config.getBoolean("Items.sack.glow");
 
         loadGems();
         loadOres();

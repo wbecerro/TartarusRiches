@@ -23,6 +23,7 @@ public class Messages {
     public String doubleArguments;
     public String clusterGiven;
     public String extraSlotItemGiven;
+    public String sackItemGiven;
     public String gemRemoved;
     public String removeArguments;
     public String gemApplied;
@@ -32,6 +33,10 @@ public class Messages {
     public String slotsArguments;
     public String notEnoughXP;
     public String modeChanged;
+    public String noGemsFound;
+    public String pageNotFound;
+    public String menuNextPage;
+    public String menuPreviousPage;
     public List<String> stats = new ArrayList<>();
     public List<String> help = new ArrayList<>();
 
@@ -52,6 +57,7 @@ public class Messages {
         doubleArguments = config.getString("Messages.doubleArguments").replace("&", "§");
         clusterGiven = config.getString("Messages.clusterGiven").replace("&", "§");
         extraSlotItemGiven = config.getString("Messages.extraSlotItemGiven").replace("&", "§");
+        sackItemGiven = config.getString("Messages.sackItemGiven").replace("&", "§");
         gemRemoved = config.getString("Messages.gemRemoved").replace("&", "§");
         removeArguments = config.getString("Messages.removeArguments").replace("&", "§");
         gemApplied = config.getString("Messages.gemApplied").replace("&", "§");
@@ -61,6 +67,10 @@ public class Messages {
         slotsArguments = config.getString("Messages.slotsArguments").replace("&", "§");
         notEnoughXP = config.getString("Messages.notEnoughXP").replace("&", "§");
         modeChanged = config.getString("Messages.modeChanged").replace("&", "§");
+        noGemsFound = config.getString("Messages.noGemsFound").replace("&", "§");
+        pageNotFound = config.getString("Messages.pageNotFound").replace("&", "§");
+        menuNextPage = config.getString("Messages.menuNextPage").replace("&", "§");
+        menuPreviousPage = config.getString("Messages.menuPreviousPage").replace("&", "§");
         stats = config.getStringList("Messages.stats");
         help = config.getStringList("Messages.help");
     }

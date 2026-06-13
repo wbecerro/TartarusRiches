@@ -17,7 +17,7 @@ import java.util.List;
 public class TabListener implements TabCompleter {
 
     private final List<String> subCommands = Arrays.asList("help", "pickaxe", "cluster", "list", "gem",
-            "gemChance", "double", "remove", "slots", "stats", "reload", "extraSlotItem");
+            "gemChance", "double", "remove", "slots", "stats", "reload", "extraSlotItem", "sack");
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
@@ -47,6 +47,7 @@ public class TabListener implements TabCompleter {
                     completions.addAll(materials);
                     break;
                 case "extraslotitem":
+                case "sack":
                 case "cluster":
                     for(Player player : Bukkit.getOnlinePlayers()) {
                         if(args[1].isEmpty()) {

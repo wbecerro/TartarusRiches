@@ -22,6 +22,7 @@ Messages:
   doubleArguments: "&b[&cMinería&b] &eEl uso es /tartarusriches double <Probabilidad>."
   clusterGiven: "&b[&cMinería&b] &eHas conseguido una &8&lMena sin procesar&e."
   extraSlotItemGiven: "&b[&cMinería&b] &eHas conseguido una &8&lEsencia de oscuridad&e."
+  sackItemGiven: "&b[&cMinería&b] &eHas conseguido un &5&lSaco de gemas&e."
   gemRemoved: "&b[&cMinería&b] &eHas quitado la gema del hueco %slot%."
   removeArguments: "&b[&cMinería&b] &eEl uso es /tartarusriches remove <Hueco>."
   gemApplied: "&b[&cMinería&b] &eHas incrustado la gema en el objeto."
@@ -30,6 +31,10 @@ Messages:
   slotsChanged: "&b[&cMinería&b] &eEste objeto ahora puede soportar el poder de %slots% gemas."
   slotsArguments: "&b[&cMinería&b] &eEl uso es /tartarusriches slots <Huecos>."
   notEnoughXP: "&b[&cMinería&b] &eNecesitas %levels% niveles de experiencia para quitar la gema."
+  noGemsFound: "&b[&cMinería&b] &eNo tienes ninguna gema."
+  pageNotFound: "&b[&cMinería&b] &eNo se ha encontrado la página a la que quieres acceder."
+  menuNextPage: "Ir a página %next_page%"
+  menuPreviousPage: "Ir a página %previous_page%"
   modeChanged: "&d&lModo cambiado"
   stats:
     - "&d&m-===- &b[&cMinería&b] &d&m-===-"
@@ -49,6 +54,7 @@ Messages:
     - "&b/tartarusriches remove <Hueco> &eElimina la gema del hueco seleccionado."
     - "&b/tartarusriches slots <Huecos> &eCambia el número de gemas máximas aplicables a un objeto."
     - "&b/tartarusriches stats &eMuestra tus estadísticas."
+    - "&b/tartarusriches sack [Jugador] &eDa un saco de gemas."
     - "&b/tartarusriches reload &eRecarga la configuración del plugin."
     - "&b"
     - "&eLeyenda: &b<> &eObligatorio  &b[] &eOpcional"
@@ -63,6 +69,20 @@ Sounds:
   criticSound: ENTITY_ZOMBIE_ATTACK_IRON_DOOR
   transformationSound: ENTITY_ZOMBIE_VILLAGER_CONVERTED
   changeModeSound: BLOCK_LEVER_CLICK
+  addGemToSackSound: ENTITY_ITEM_PICKUP
+
+Menu:
+  title: "&8Gemas"
+  borderMaterial: GRAY_STAINED_GLASS_PANE
+  gemItem:
+    name: "%gem%"
+    lore:
+      - "&7"
+      - "&7%description%"
+      - "&7"
+      - "&7Acumulado: &d%accumulated%"
+      - "&7"
+      - "&eClic para sacar una gema con valor máximo."
 
 Items:
   slotsTitle: "&7&m-=-&d Gemas &7&m-=-"
@@ -109,6 +129,16 @@ Items:
       - "&7de gemas que puede soportar."
       - "&7"
       - "&dPuede aplicarse infinitamente."
+    glow: true
+  sack:
+    material: PURPLE_BUNDLE
+    name: "&5&lSaco de gemas"
+    lore:
+      - "&7"
+      - "&7Saco de gemas de dimensiones infinitas"
+      - "&7de posesión del dios Vishnu."
+      - "&7"
+      - "&eClic derecho para abrirlo."
     glow: true
 
 Gems:

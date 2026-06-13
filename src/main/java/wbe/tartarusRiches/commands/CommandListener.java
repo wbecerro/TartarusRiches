@@ -9,10 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import wbe.tartarusRiches.TartarusRiches;
 import wbe.tartarusRiches.config.Gem;
-import wbe.tartarusRiches.items.Cluster;
-import wbe.tartarusRiches.items.ExtraSlotItem;
-import wbe.tartarusRiches.items.Gemstone;
-import wbe.tartarusRiches.items.Pickaxe;
+import wbe.tartarusRiches.items.*;
 
 public class CommandListener implements CommandExecutor {
 
@@ -222,6 +219,19 @@ public class CommandListener implements CommandExecutor {
 
                 TartarusRiches.utilities.addItemToInventory(player, extraSlotItem);
                 player.sendMessage(TartarusRiches.messages.extraSlotItemGiven);
+            } else if(args[0].equalsIgnoreCase("sack")) {
+                if(!sender.hasPermission("tartarusriches.command.sack")) {
+                    sender.sendMessage(TartarusRiches.messages.noPermission);
+                    return false;
+                }
+
+                GemSack sackItem = new GemSack();
+                if(args.length > 1) {
+                    player = Bukkit.getPlayer(args[1]);
+                }
+
+                TartarusRiches.utilities.addItemToInventory(player, sackItem);
+                player.sendMessage(TartarusRiches.messages.sackItemGiven);
             }
         }
         return true;

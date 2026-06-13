@@ -4,6 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.BlockFace;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -11,8 +13,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import wbe.tartarusRiches.TartarusRiches;
 import wbe.tartarusRiches.config.Gem;
+import wbe.tartarusRiches.config.SackGem;
 import wbe.tartarusRiches.items.Gemstone;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class Utilities {
@@ -21,6 +26,74 @@ public class Utilities {
 
     public Utilities() {
         plugin = TartarusRiches.getInstance();
+    }
+
+    public void savePlayerData(Player player) {
+        try {
+            File playerFile = new File(
+                    TartarusRiches.getInstance().getDataFolder(), "saves/" + player.getUniqueId() + ".yml"
+            );
+            boolean fileCreated = playerFile.createNewFile();
+            FileConfiguration playerConfig = YamlConfiguration.loadConfiguration(playerFile);
+            List<SackGem> gems = TartarusRiches.playerSacks.get(player);
+
+            playerConfig.set("gems", null);
+
+            if(gems == null || gems.isEmpty()) {
+                playerConfig.createSection("gems");
+            } else {
+                gems.forEach(gem -> {
+                    String gemId = gem.getGem().getId();
+                    playerConfig.set("gems." + gemId + ".effectiveness", gem.getEffectiveness());
+                });
+            }
+
+            playerConfig.save(playerFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error while saving the " + player.getName() + " data.");
+        }
+    }
+
+    public void loadPlayerData(Player player) {
+        File playerFile = new File(
+                TartarusRiches.getInstance().getDataFolder(), "saves/" + player.getUniqueId() + ".yml"
+        );
+        List<SackGem> gems = new ArrayList<>();
+        if(!playerFile.exists()) {
+            TartarusRiches.playerSacks.put(player, gems);
+            return;
+        }
+
+        FileConfiguration playerConfig = YamlConfiguration.loadConfiguration(playerFile);
+        if(playerConfig.getKeys(false).isEmpty()) {
+            TartarusRiches.playerSacks.put(player, gems);
+            return;
+        }
+
+        Set<String> gemIds = playerConfig.getConfigurationSection("gems").getKeys(false);
+        for(String gemId : gemIds) {
+            Gem gem = TartarusRiches.config.gems.get(gemId);
+            if(gem == null) {
+                continue;
+            }
+
+            double effectiveness = playerConfig.getDouble("gems." + gemId + ".effectiveness");
+            SackGem sackGem = new SackGem(gem, effectiveness);
+            gems.add(sackGem);
+        }
+
+        TartarusRiches.playerSacks.put(player, gems);
+    }
+
+    public SackGem getSackGem(Player player, String id) {
+        for(SackGem sackGem : TartarusRiches.playerSacks.get(player)) {
+            if(sackGem.getGem().getId().equalsIgnoreCase(id)) {
+                return sackGem;
+            }
+        }
+
+        return null;
     }
 
     public void addGemChance(ItemStack item, double chance) {

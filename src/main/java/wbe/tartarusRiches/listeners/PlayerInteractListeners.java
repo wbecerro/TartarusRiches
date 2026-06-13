@@ -50,4 +50,22 @@ public class PlayerInteractListeners implements Listener {
 
         item.setAmount(item.getAmount() - 1);
     }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void openGemSackOnInteract(PlayerInteractEvent event) {
+        if(event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+            ItemStack item = event.getItem();
+            NamespacedKey sackKey = new NamespacedKey(TartarusRiches.getInstance(), "gemsack");
+            if(!TartarusRiches.utilities.checkItem(item, sackKey)) {
+                return;
+            }
+
+            event.setCancelled(true);
+            try {
+                MenuListener.openMenu(event.getPlayer(), 1);
+            } catch(Exception e) {
+                event.getPlayer().sendMessage(e.getMessage());
+            }
+        }
+    }
 }
